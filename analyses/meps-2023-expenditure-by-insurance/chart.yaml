@@ -1,0 +1,17 @@
+chart_type: bar
+orientation: vertical
+title: Uninsured Americans spend the least on health care
+subtitle: Mean total health expenditure per person by insurance coverage, 2023
+source: AHRQ, Medical Expenditure Panel Survey HC-251 (2023)
+note: Weighted with PERWT23F. 95% CI bounds from analytic SE approximation are in
+  the fallback data table.
+x: insurance
+y: estimate
+ci_low: ci_low
+ci_high: ci_high
+x_label: Insurance coverage type
+y_label: Mean total expenditure (USD)
+value_format: currency
+color: '#008C95'
+width: 1600
+height: 980

@@ -1,0 +1,79 @@
+year: 2023
+revision: "1.1"
+landing_page: https://www.census.gov/programs-surveys/ahs/data/2023/ahs-2023-public-use-file--puf-/ahs-2023-national-public-use-file--puf-.html
+required_artifacts:
+  - national_csv
+  - version_control
+  - verification_workbook
+  - value_labels
+  - design_report
+  - variance_guide
+  - codebook_variables
+  - codebook_details
+  - codebook_years
+  - getting_started
+static_artifacts:
+  - role: design_report
+    url: https://www2.census.gov/programs-surveys/ahs/2023/2023%20AHS%20National%20Sample%20Design,%20Weighting,%20and%20Error%20Estimation.pdf
+    filename: 2023_AHS_National_Sample_Design_Weighting_Error_Estimation.pdf
+    documentation: true
+  - role: variance_guide
+    url: https://www.census.gov/content/dam/Census/programs-surveys/ahs/tech-documentation/2015/Quick_Guide_to_Estimating_Variance_Using_Replicate_Weights_2009_to_Current.pdf
+    filename: Quick_Guide_to_Estimating_Variance_Using_Replicate_Weights_2009_to_Current.pdf
+    documentation: true
+  - role: codebook_variables
+    url: https://www.census.gov/data-tools/demo/data/uccb/ahsdict/variables.json
+    filename: variables.json
+    documentation: false
+  - role: codebook_details
+    url: https://www.census.gov/data-tools/demo/data/uccb/ahsdict/details.json
+    filename: details.json
+    documentation: false
+  - role: codebook_years
+    url: https://www.census.gov/data-tools/demo/data/uccb/ahsdict/options-years.json
+    filename: options-years.json
+    documentation: false
+  - role: getting_started
+    url: https://www.census.gov/programs-surveys/ahs/tech-documentation/help-guides/2015-later/puf_start.html
+    filename: puf_start.html
+    documentation: false
+tables:
+  household:
+    filename: household.csv
+    rows: 55669
+    columns: 1180
+    key: [CONTROL]
+  mortgage:
+    filename: mortgage.csv
+    rows: 16834
+    columns: 37
+    key: [CONTROL, MORTLINE]
+  person:
+    filename: person.csv
+    rows: 114476
+    columns: 107
+    key: [CONTROL, PERSONID]
+  project:
+    filename: project.csv
+    rows: 44689
+    columns: 15
+    key: []
+weight_contract:
+  full_sample: WEIGHT
+  split_sample: [SP1WEIGHT, SP2WEIGHT]
+  replicate_prefix: REPWEIGHT
+  replicate_count: 160
+  variance_factor: 0.025
+benchmark:
+  table: household
+  universe_variable: INTSTATUS
+  universe_values: ["1"]
+  expected_status_values: ["1", "2", "3"]
+  expected_estimate_thousands: 133231
+  expected_moe90_thousands: 381
+  estimate_rounding_tolerance: 0.5
+codebook_contract:
+  minimum_variables: 3318
+  minimum_details: 7269
+  required_year_option: 2023 National
+  required_variables: [CONTROL, INTSTATUS, WEIGHT]

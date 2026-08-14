@@ -1,0 +1,17 @@
+agency: OECD.CTP.TPS
+flow: DSD_TAX_WAGES_DECOMP@DF_TW_DECOMP
+version: "2.1"
+key: USA+DNK+FIN+NOR+SWE...S_C2+S_C0...A
+dataset_title: Tax Wages decomposition (tax wedges and cash benefits)
+landing_page: https://data-explorer.oecd.org/vis?df[ds]=dsDisseminateFinalDMZ&df[id]=DSD_TAX_WAGES_DECOMP@DF_TW_DECOMP&df[ag]=OECD.CTP.TPS&df[vs]=2.1
+reference_year: 2025
+start_period: "2024"
+benchmark:
+  ref_area: USA
+  measure: AV_TW
+  household_type: S_C0
+  income_principal: AW100
+  time_period: "2025"
+  expected_value: 29.98
+  tolerance: 0.5
+terms: oecd_open_use

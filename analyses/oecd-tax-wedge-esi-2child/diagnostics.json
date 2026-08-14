@@ -1,0 +1,39 @@
+{
+  "analysis": "oecd-tax-wedge-esi-2child",
+  "release_id": "oecd_tax_wages-2025-511005655c1e",
+  "row_counts": {
+    "output_rows": 1206,
+    "wage_levels": 201,
+    "series": 6
+  },
+  "weighted_population": {
+    "note": "macrodata; no survey weight"
+  },
+  "missingness": {
+    "value": 0
+  },
+  "design": {
+    "type": "macrodata",
+    "weight": "none",
+    "replicate_weights": "none"
+  },
+  "uncertainty": {
+    "note": "no sampling variance; official macrodata"
+  },
+  "adjustment": {
+    "name": "US ESI family premium added to tax wedge (article method)",
+    "premium_total": 26993.0,
+    "premium_employer": 20143.0,
+    "premium_worker": 6850.0,
+    "source": "KFF 2025 Employer Health Benefits Survey"
+  },
+  "benchmark": {
+    "name": "US 2-child AW100 wedge with ESI at or above Nordic average",
+    "observed": 44.092214589412684,
+    "expected": 31.257977874999998,
+    "tolerance": 0.0,
+    "passed": true,
+    "note": "With the average family ESI premium counted as tax, the US 2-child wedge at the average wage (44.09) exceeds the Nordic average (31.26) and every Nordic country.",
+    "official_source": "OECD Tax Wages decomposition + KFF 2025"
+  }
+}

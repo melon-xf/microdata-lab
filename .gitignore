@@ -1,0 +1,39 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+.env
+node_modules/
+web/dist/
+playwright-report/
+test-results/
+.Rhistory
+.RData
+.Rproj.user/
+renv/library/
+renv/staging/
+.r-env/
+
+# Data and generated artifacts
+.data/
+data/
+outputs/
+analyses/**/screenshots/
+*.parquet
+*.duckdb
+*.duckdb.wal
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+
+# Local operator/UI artifacts; never publish these with the project.
+.hermes/
+.milestone-c-shots/

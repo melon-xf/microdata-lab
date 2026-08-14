@@ -1,0 +1,31 @@
+{
+  "analysis": "oecd-sha-us-financing",
+  "release_id": "oecd_sha-2023-60b53ef2dd00",
+  "row_counts": {
+    "output_rows": 172,
+    "years": 54,
+    "bands": 4
+  },
+  "weighted_population": {
+    "note": "macrodata; no survey weight"
+  },
+  "missingness": {
+    "value": 0
+  },
+  "design": {
+    "type": "macrodata",
+    "weight": "none",
+    "replicate_weights": "none"
+  },
+  "uncertainty": {
+    "note": "no sampling variance; official national accounts"
+  },
+  "benchmark": {
+    "name": "USA total health expenditure % of GDP 2023 (sum of scheme bands)",
+    "observed": 16.869999999999997,
+    "expected": 17.2,
+    "tolerance": 1.0,
+    "passed": true,
+    "official_source": "OECD System of Health Accounts (DSD_SHA@DF_SHA)"
+  }
+}

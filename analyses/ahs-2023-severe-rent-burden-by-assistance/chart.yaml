@@ -1,0 +1,28 @@
+chart_type: dumbbell
+theme: editorial
+eyebrow: "housing \xB7 AHS 2023"
+title: Public housing is associated with far less severe housing burden
+subtitle: Share spending more than half of income on total housing costs, renters
+  with positive income at or below 200% of poverty
+source: U.S. Census Bureau and HUD, 2023 American Housing Survey National PUF
+note: Public housing status uses respondent-reported AHS RENTSUB; voucher estimates
+  are retained in all-groups.csv. Weighted with WEIGHT; 160 replicate weights used
+  for uncertainty. Descriptive, not causal. Point estimates shown; confidence intervals
+  are in the fallback table.
+x: poverty_band
+y: estimate
+series: group
+ci_low: ci_low
+ci_high: ci_high
+series_order:
+- Public housing
+- No assistance
+color_map:
+  Public housing: '#0B7A75'
+  No assistance: '#D1495B'
+x_label: Households spending more than half of income on housing
+value_format: percent
+y_min: 0
+y_max: 1
+width: 1800
+height: 1200

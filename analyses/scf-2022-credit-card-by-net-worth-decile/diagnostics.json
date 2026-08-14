@@ -1,0 +1,45 @@
+{
+  "analysis": "scf-2022-credit-card-by-net-worth-decile",
+  "release_id": "scf-2022-7b35624679b4",
+  "release_sha256": "7b35624679b477113adf7387f6c7c1f4cb46603815dc3eb0d1515de9e441401a",
+  "row_counts": {
+    "summary_extract_rows": 22975,
+    "unique_families": 4595,
+    "implicates": 5,
+    "output_rows": 10
+  },
+  "weighted_population": {
+    "families": 131306389.38347022,
+    "note": "Population scale restored by multiplying summary-extract implicate weights by five."
+  },
+  "missingness": {
+    "NETWORTH": 0,
+    "CCBAL": 0
+  },
+  "design": {
+    "main_weight": "WGT",
+    "replicate_count": 999,
+    "replicate_weight_formula": "wt1bN * mmN",
+    "multiple_imputation_factor": 1.2,
+    "decile_tie_policy": "Stable NETWORTH then family-ID order; cumulative-weight midpoint assignment"
+  },
+  "uncertainty": {
+    "standard_error_min": 255.98928581623292,
+    "standard_error_max": 712.8582120815151,
+    "confidence_level": 0.95,
+    "interval_method": "normal approximation"
+  },
+  "benchmark": {
+    "name": "2022 all-family median net worth",
+    "reproduced_dollars": 192084,
+    "official_dollars": 192900,
+    "relative_error": 0.004230171073094867,
+    "tolerance": 0.01,
+    "passed": true,
+    "official_source": "https://www.federalreserve.gov/publications/october-2023-changes-in-us-family-finances-from-2019-to-2022.htm"
+  },
+  "estimate_range": {
+    "minimum": 1746.447715762282,
+    "maximum": 4340.617197954518
+  }
+}

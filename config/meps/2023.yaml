@@ -1,0 +1,16 @@
+puf_id: HC-251
+puf_number: "251"
+year: 2023
+landing_page: https://meps.ahrq.gov/mepsweb/data_stats/download_data_files_detail.jsp?cboPufNumber=HC-251
+data_base: https://meps.ahrq.gov/mepsweb/data_files/pufs/h251
+docs_base: https://meps.ahrq.gov/mepsweb/data_stats/download_data/pufs/h251
+weight_column: PERWT23F
+expenditure_column: TOTEXP23
+insurance_column: INSCOV23
+benchmark:
+  variable: TOTEXP23
+  weight: PERWT23F
+  expected_mean: 7487.26
+  tolerance: 1.0
+  description: "Weighted mean total health care expenditure per person, 2023"
+terms: us_federal_public_domain

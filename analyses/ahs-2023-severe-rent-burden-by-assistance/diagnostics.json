@@ -1,0 +1,236 @@
+{
+  "analysis": "ahs-2023-severe-rent-burden-by-assistance",
+  "release_id": "ahs-2023-cd440e383936",
+  "release_sha256": "cd440e383936eaaa0435fc63be15caae2e95b6f29aadf0a88d6e147dd3ebfee6",
+  "row_counts": {
+    "raw_household_rows": 55669,
+    "occupied_renter_rows": 19735,
+    "analysis_rows_all_classified_groups": 9536,
+    "all_display_group_rows": 12,
+    "publication_rows": 8,
+    "nonpositive_income_renter_rows": 590,
+    "unclassified_assistance_renter_rows": 969
+  },
+  "weighted_population": {
+    "analysis_households_all_classified_groups": 16804276.665821314,
+    "publication_groups": {
+      "Public housing": 2590283.866111558,
+      "Voucher": 1448826.089138425,
+      "No assistance": 10809778.04728338
+    }
+  },
+  "missingness": {
+    "HINCP": 0,
+    "PERPOVLVL": 0,
+    "TOTHCAMT": 0,
+    "WEIGHT": 0
+  },
+  "design": {
+    "record_unit": "occupied AHS housing unit / household",
+    "weight": "WEIGHT",
+    "replicate_weights": "REPWEIGHT1-REPWEIGHT160",
+    "variance_factor": 0.025,
+    "replicate_method": "4/160 times sum of squared replicate deviations"
+  },
+  "uncertainty": {
+    "method": "AHS replicate-weight variance; normal 95% confidence intervals",
+    "chart_policy": "point estimates only; intervals retained in data.csv"
+  },
+  "benchmark": {
+    "name": "2023 AHS occupied housing units",
+    "observed": 133230.77707932927,
+    "expected": 133231.0,
+    "observed_estimate_thousands": 133230.77707932927,
+    "expected_estimate_thousands": 133231.0,
+    "observed_moe90_thousands": 381.0205376785277,
+    "expected_moe90_thousands": 381.0,
+    "passed": true,
+    "official_source": "2023 AHS National PUF verification benchmark"
+  },
+  "classification": {
+    "source_variable": "RENTSUB",
+    "public_housing": [
+      "1"
+    ],
+    "voucher": [
+      "2",
+      "3"
+    ],
+    "other_government_assistance": [
+      "4",
+      "5"
+    ],
+    "no_assistance": [
+      "8"
+    ],
+    "all_group_estimates": [
+      {
+        "poverty_band": "\u226450%",
+        "group": "No assistance",
+        "estimate": 0.9820688980657851,
+        "standard_error": 0.008233121324279287,
+        "ci_low": 0.9659319802701978,
+        "ci_high": 0.9982058158613725,
+        "unweighted_households": 593,
+        "weighted_households": 1709846.1258762903
+      },
+      {
+        "poverty_band": "\u226450%",
+        "group": "Other government assistance",
+        "estimate": 0.9225543712619073,
+        "standard_error": 0.023928846521623765,
+        "ci_low": 0.8756538320795247,
+        "ci_high": 0.9694549104442899,
+        "unweighted_households": 251,
+        "weighted_households": 374367.23488345003
+      },
+      {
+        "poverty_band": "\u226450%",
+        "group": "Public housing",
+        "estimate": 0.8899138525618341,
+        "standard_error": 0.01283678349999156,
+        "ci_low": 0.8647537569018506,
+        "ci_high": 0.9150739482218175,
+        "unweighted_households": 796,
+        "weighted_households": 650624.908856047
+      },
+      {
+        "poverty_band": "\u226450%",
+        "group": "Voucher",
+        "estimate": 0.867586745544516,
+        "standard_error": 0.02970353227059481,
+        "ci_low": 0.8093678222941502,
+        "ci_high": 0.9258056687948818,
+        "unweighted_households": 440,
+        "weighted_households": 406851.569743959
+      },
+      {
+        "poverty_band": "51\u2013100%",
+        "group": "No assistance",
+        "estimate": 0.8146474294331747,
+        "standard_error": 0.01612634808075517,
+        "ci_low": 0.7830397871948945,
+        "ci_high": 0.8462550716714549,
+        "unweighted_households": 873,
+        "weighted_households": 2585257.75718346
+      },
+      {
+        "poverty_band": "51\u2013100%",
+        "group": "Other government assistance",
+        "estimate": 0.5541880185737762,
+        "standard_error": 0.03623687635459145,
+        "ci_low": 0.48316374091877695,
+        "ci_high": 0.6252122962287754,
+        "unweighted_households": 429,
+        "weighted_households": 636175.4500681891
+      },
+      {
+        "poverty_band": "51\u2013100%",
+        "group": "Public housing",
+        "estimate": 0.2694335613193783,
+        "standard_error": 0.023908574477713985,
+        "ci_low": 0.22257275534305887,
+        "ci_high": 0.3162943672956977,
+        "unweighted_households": 1190,
+        "weighted_households": 946256.780715466
+      },
+      {
+        "poverty_band": "51\u2013100%",
+        "group": "Voucher",
+        "estimate": 0.3591026911664369,
+        "standard_error": 0.02745279480202816,
+        "ci_low": 0.3052952133544617,
+        "ci_high": 0.4129101689784121,
+        "unweighted_households": 702,
+        "weighted_households": 623483.444950596
+      },
+      {
+        "poverty_band": "101\u2013150%",
+        "group": "No assistance",
+        "estimate": 0.5343341857619471,
+        "standard_error": 0.01731445164560238,
+        "ci_low": 0.5003978605365664,
+        "ci_high": 0.5682705109873278,
+        "unweighted_households": 1064,
+        "weighted_households": 3060648.34449974
+      },
+      {
+        "poverty_band": "101\u2013150%",
+        "group": "Other government assistance",
+        "estimate": 0.4719305700424749,
+        "standard_error": 0.04447526600213625,
+        "ci_low": 0.38475904867828786,
+        "ci_high": 0.559102091406662,
+        "unweighted_households": 281,
+        "weighted_households": 490395.11675262
+      },
+      {
+        "poverty_band": "101\u2013150%",
+        "group": "Public housing",
+        "estimate": 0.22975230822751724,
+        "standard_error": 0.027847658264786457,
+        "ci_low": 0.1751708980285358,
+        "ci_high": 0.2843337184264987,
+        "unweighted_households": 710,
+        "weighted_households": 620710.291446159
+      },
+      {
+        "poverty_band": "101\u2013150%",
+        "group": "Voucher",
+        "estimate": 0.1692619059464413,
+        "standard_error": 0.02716229471048975,
+        "ci_low": 0.1160238083138814,
+        "ci_high": 0.2225000035790012,
+        "unweighted_households": 310,
+        "weighted_households": 273418.25033244
+      },
+      {
+        "poverty_band": "151\u2013200%",
+        "group": "No assistance",
+        "estimate": 0.36038934491946767,
+        "standard_error": 0.015865628132492586,
+        "ci_low": 0.3292927137797822,
+        "ci_high": 0.39148597605915314,
+        "unweighted_households": 1177,
+        "weighted_households": 3454025.81972389
+      },
+      {
+        "poverty_band": "151\u2013200%",
+        "group": "Other government assistance",
+        "estimate": 0.24115017920864507,
+        "standard_error": 0.04021390049685405,
+        "ci_low": 0.16233093423481115,
+        "ci_high": 0.319969424182479,
+        "unweighted_households": 205,
+        "weighted_households": 454450.86158369
+      },
+      {
+        "poverty_band": "151\u2013200%",
+        "group": "Public housing",
+        "estimate": 0.1353948898785878,
+        "standard_error": 0.02731720625540663,
+        "ci_low": 0.0818531656179908,
+        "ci_high": 0.1889366141391848,
+        "unweighted_households": 371,
+        "weighted_households": 372691.88509388606
+      },
+      {
+        "poverty_band": "151\u2013200%",
+        "group": "Voucher",
+        "estimate": 0.18478330116176406,
+        "standard_error": 0.03649793206908818,
+        "ci_low": 0.11324735430635122,
+        "ci_high": 0.25631924801717687,
+        "unweighted_households": 144,
+        "weighted_households": 145072.82411143
+      }
+    ]
+  },
+  "limitations": [
+    "Cross-sectional descriptive associations; not causal treatment effects.",
+    "RENTSUB is respondent-reported and derived from multiple interview items.",
+    "TOTHCAMT includes rent, utilities, and other housing costs.",
+    "Nonpositive-income households are excluded from burden ratios.",
+    "PERPOVLVL is rounded in the released file."
+  ]
+}

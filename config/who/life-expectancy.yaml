@@ -1,0 +1,13 @@
+indicator_code: WHOSIS_000001
+indicator_title: Life expectancy at birth (years)
+indicator_url: https://www.who.int/data/gho/data/indicators/indicator-details/GHO/life-expectancy-at-birth-(years)
+landing_page: https://www.who.int/data/gho
+reference_year: 2021
+benchmark:
+  country: USA
+  sex: SEX_BTSX
+  expected_value: 76.37
+  tolerance: 0.01
+  description: Life expectancy at birth, both sexes, United States, 2021 (WHO GHO indicator WHOSIS_000001)
+terms: cc_by_4_0
+record_unit: country_year_observation

@@ -1,0 +1,25 @@
+name: microdata-lab-r
+channels:
+  - conda-forge
+channel_priority: strict
+dependencies:
+  - poppler
+  - r-base=4.5.*
+  - r-ggplot2
+  - r-ragg
+  - r-ggtext
+  - r-patchwork
+  - r-ggrepel
+  - r-haven
+  - r-jsonlite
+  - r-readr
+  - r-scales
+  - r-dplyr
+  - r-survey
+  - r-mitools
+  - r-srvyr
+  - r-systemfonts
+  - r-stringr
+  - r-tidyr
+  - fonts-conda-ecosystem
+  - fonts-conda-forge

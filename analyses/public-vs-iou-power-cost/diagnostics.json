@@ -1,0 +1,69 @@
+{
+  "analysis": "public-vs-iou-power-cost",
+  "release_id": "eia_861-2024-aca25b50f1cb",
+  "release_sha256": "aca25b50f1cbef37b7be158116d09c27cf79baac43813e35c8fcf3bd2480612b",
+  "row_counts": {
+    "utilities_observed": 2638,
+    "municipal_utilities": 462,
+    "iou_utilities": 252,
+    "cooperative_utilities": 633,
+    "federal_utilities": 22,
+    "tva_area_utilities": 169,
+    "output_rows": 4
+  },
+  "weighted_population": {
+    "us_residential_sales_mwh": 1545764081,
+    "tva_area_sales_mwh": 62314846
+  },
+  "missingness": {
+    "res_revenue_missing": 60,
+    "res_sales_missing": 60
+  },
+  "design": {
+    "source": "EIA Form 861 (2024), Sales to Ultimate Customers, normalized by the eia_861 adapter",
+    "source_url": "https://www.eia.gov/electricity/data/eia861/zip/f8612024.zip",
+    "access_date": "2026-08-14",
+    "artifact_sha256": "77ce49c60ac5a6bad50c442fc401aad5404a21da875dc5cbaba353af5ede54de",
+    "aggregation": "revenue-weighted average residential price = sum(residential revenue) / sum(residential sales) * 100, cents/kWh",
+    "rows": "observed (Data Type = O), all service types (bundled + energy + delivery)",
+    "period": "calendar year 2024",
+    "ownership_column": "EIA-861 'Ownership' field",
+    "tva_area_definition": "utilities whose Balancing Authority code = TVA"
+  },
+  "uncertainty": {
+    "note": "Population aggregates from the EIA-861 census of utilities; no sampling variance. Ownership comparison is observational, not causal."
+  },
+  "literature": {
+    "author": "Kwoka, John",
+    "year": 2005,
+    "title": "The comparative advantage of public ownership: evidence from U.S. electric utilities",
+    "journal": "Canadian Journal of Economics / Revue canadienne d'economique",
+    "volume": 38,
+    "issue": 2,
+    "pages": "622-640",
+    "doi": "10.1111/j.0008-4085.2005.00296.x",
+    "finding": "While privately owned systems achieve lower costs in generation, public systems generally have an advantage in the end-user-oriented distribution function with its more non-contractible quality attributes (published abstract; the paper's specific coefficients are paywalled and not reproduced here)."
+  },
+  "headline": {
+    "municipal_res_avg": 13.526,
+    "iou_res_avg": 16.495,
+    "us_res_avg_computed": 15.411,
+    "tva_area_res_avg": 12.429,
+    "coop_res_avg": 13.464,
+    "iou_vs_municipal_ratio": 1.22,
+    "municipal_vs_iou_pct_lower": 18.0,
+    "tva_area_vs_us_ratio": 1.24
+  },
+  "benchmark": {
+    "name": "Computed EIA-861 US residential average vs official EIA Electric Power Monthly 2024 annual average (Table 5.3)",
+    "observed": 15.411,
+    "expected": 16.48,
+    "ratio": 0.935,
+    "band": [
+      0.9,
+      1.1
+    ],
+    "passed": true,
+    "official_source": "EIA Electric Power Monthly, Table 5.3, 2024 annual, Residential = 16.48 cents/kWh"
+  }
+}

@@ -1,0 +1,29 @@
+name: Bug report
+description: Report a reproducible code, acquisition, validation, or rendering defect
+title: "bug: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Do not include credentials, raw restricted microdata, or provider-licensed records.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What failed, and what did you expect instead?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Include commands, source slug/year, and a minimal safe fixture when relevant.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Diagnostics
+      description: Include sanitized validation output, tracebacks, and environment versions.
+    validations:
+      required: true

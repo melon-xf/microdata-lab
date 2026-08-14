@@ -1,0 +1,23 @@
+chart_type: bar
+title: 'Public power is measurable: municipal customers paid 18% less per kWh than
+  IOU customers in 2024'
+subtitle: Average residential electricity price by utility ownership, cents per kilowatt-hour,
+  U.S., 2024 (EIA Form 861)
+source: U.S. EIA, Form 861 (2024) Sales to Ultimate Customers; EIA Electric Power
+  Monthly Table 5.3 (benchmark)
+note: 'Revenue-weighted average residential price, 2024, EIA-861 observed rows (bundled
+  + energy + delivery). Municipal = publicly owned utilities; TVA-area = distributors
+  buying TVA power (municipal + cooperative, 7 states). IOU customers paid 16.50 vs
+  13.53 cents/kWh for municipal customers (22% more). Observational, not causal: ownership
+  correlates with service-area cost structure. Computed U.S. average 15.41 vs official
+  EPM 2024 average 16.48 (benchmark ratio 0.94, PASS). Literature: Kwoka (2005, Canadian
+  J. of Economics 38(2):622-640) finds public systems generally have lower end-user
+  distribution costs. Point estimates only.'
+x: category
+y: cents_per_kwh
+x_label: Utility ownership (residential service)
+y_label: Average residential price (cents/kWh, 2024)
+value_format: number
+color: '#E30613'
+width: 1600
+height: 980

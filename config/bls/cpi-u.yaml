@@ -1,0 +1,12 @@
+series_id: CUUR0000SA0
+series_title: CPI-U All items (seasonally adjusted), U.S. city average
+series_url: https://data.bls.gov/timeseries/CUUR0000SA0
+landing_page: https://www.bls.gov/cpi/
+reference_year: 2024
+benchmark:
+  period: 2024-12
+  expected_value: 315.605
+  tolerance: 0.001
+  description: CPI-U All items (SA), December 2024 (BLS series CUUR0000SA0)
+terms: us_federal_public_domain
+record_unit: monthly_index_observation

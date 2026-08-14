@@ -1,0 +1,69 @@
+year: 2024
+landing_page: https://www.bls.gov/cex/pumd_data.htm
+required_artifacts:
+  - interview_prior
+  - interview_current
+  - diary_current
+  - dictionary
+  - getting_started
+  - integration_workbook
+  - benchmark_workbook
+  - sample_r
+  - prior_errata
+static_artifacts:
+  - role: getting_started
+    url: https://www.bls.gov/cex/pumd-getting-started-guide.htm
+    filename: pumd-getting-started-guide.htm
+    documentation: true
+  - role: integration_workbook
+    url: https://www.bls.gov/cex/ce_source_integrate.xlsx
+    filename: ce_source_integrate.xlsx
+    documentation: false
+  - role: benchmark_workbook
+    url: https://www.bls.gov/cex/tables/calendar-year/mean/cu-all-detail-2024.xlsx
+    filename: cu-all-detail-2024.xlsx
+    documentation: false
+  - role: sample_r
+    url: https://www.bls.gov/cex/pumd/r-ucc.zip
+    filename: r-ucc.zip
+    documentation: false
+members:
+  - {role: interview_prior, path: intrvw23/fmli241.csv, family: interview_family, rows: 4688, columns: 819, quarter: "241"}
+  - {role: interview_prior, path: intrvw23/mtbi241.csv, family: interview_expenditures, rows: 378199, columns: 13, quarter: "241"}
+  - {role: interview_current, path: intrvw24/fmli242.csv, family: interview_family, rows: 4673, columns: 781, quarter: "242"}
+  - {role: interview_current, path: intrvw24/fmli243.csv, family: interview_family, rows: 4612, columns: 781, quarter: "243"}
+  - {role: interview_current, path: intrvw24/fmli244.csv, family: interview_family, rows: 4601, columns: 781, quarter: "244"}
+  - {role: interview_current, path: intrvw24/fmli251.csv, family: interview_family, rows: 4602, columns: 781, quarter: "251"}
+  - {role: interview_current, path: intrvw24/mtbi242.csv, family: interview_expenditures, rows: 363845, columns: 13, quarter: "242"}
+  - {role: interview_current, path: intrvw24/mtbi243.csv, family: interview_expenditures, rows: 363331, columns: 13, quarter: "243"}
+  - {role: interview_current, path: intrvw24/mtbi244.csv, family: interview_expenditures, rows: 360558, columns: 13, quarter: "244"}
+  - {role: interview_current, path: intrvw24/mtbi251.csv, family: interview_expenditures, rows: 358505, columns: 13, quarter: "251"}
+  - {role: diary_current, path: diary24/fmld241.csv, family: diary_family, rows: 3053, columns: 382, quarter: "241"}
+  - {role: diary_current, path: diary24/fmld242.csv, family: diary_family, rows: 3159, columns: 382, quarter: "242"}
+  - {role: diary_current, path: diary24/fmld243.csv, family: diary_family, rows: 3190, columns: 382, quarter: "243"}
+  - {role: diary_current, path: diary24/fmld244.csv, family: diary_family, rows: 3105, columns: 382, quarter: "244"}
+  - {role: diary_current, path: diary24/expd241.csv, family: diary_expenditures, rows: 99697, columns: 13, quarter: "241"}
+  - {role: diary_current, path: diary24/expd242.csv, family: diary_expenditures, rows: 105338, columns: 13, quarter: "242"}
+  - {role: diary_current, path: diary24/expd243.csv, family: diary_expenditures, rows: 104674, columns: 13, quarter: "243"}
+  - {role: diary_current, path: diary24/expd244.csv, family: diary_expenditures, rows: 106562, columns: 13, quarter: "244"}
+weight_contract:
+  full_sample: FINLWT21
+  replicate_prefix: WTREP
+  replicate_count: 44
+  variance_factor: 0.022727272727272728
+benchmark:
+  ucc: "670110"
+  label: College tuition
+  source_code: I
+  reference_year: 2024
+  expected_mean: 984.77
+  expected_standard_error: 79.02
+  expected_population_thousands: 135760
+  expected_positive_reporters: 961
+  rounding_tolerance: 0.005
+  population_rounding_tolerance: 0.5
+  workbook_sheet: Table 2500
+  workbook_label: College tuition [I]
+dictionary:
+  sheet: Variables
+  required_variables: [NEWID, FINLWT21, WTREP01, WTREP44, QINTRVMO, QINTRVYR, UCC, COST, REF_YR]

@@ -1,0 +1,173 @@
+year,label,value
+1970,Out-of-pocket,2.325
+1970,Voluntary private,1.598
+1970,Government programs,2.324
+1971,Out-of-pocket,2.259
+1971,Voluntary private,1.691
+1971,Government programs,2.433
+1972,Out-of-pocket,2.24
+1972,Voluntary private,1.785
+1972,Government programs,2.4909999999999997
+1973,Out-of-pocket,2.219
+1973,Voluntary private,1.774
+1973,Government programs,2.5380000000000003
+1974,Out-of-pocket,2.224
+1974,Voluntary private,1.859
+1974,Government programs,2.768
+1975,Out-of-pocket,2.212
+1975,Voluntary private,1.988
+1975,Government programs,2.988
+1976,Out-of-pocket,2.17
+1976,Voluntary private,2.216
+1976,Government programs,3.0490000000000004
+1977,Out-of-pocket,2.155
+1977,Voluntary private,2.415
+1977,Government programs,3.114
+1978,Out-of-pocket,2.042
+1978,Voluntary private,2.474
+1978,Government programs,3.1399999999999997
+1979,Out-of-pocket,1.991
+1979,Voluntary private,2.578
+1979,Government programs,3.217
+1980,Out-of-pocket,2.035
+1980,Voluntary private,2.748
+1980,Government programs,3.4589999999999996
+1981,Out-of-pocket,2.038
+1981,Voluntary private,2.908
+1981,Government programs,3.5789999999999997
+1982,Out-of-pocket,2.167
+1982,Voluntary private,3.223
+1982,Government programs,3.822
+1983,Out-of-pocket,2.163
+1983,Voluntary private,3.307
+1983,Government programs,3.87
+1984,Out-of-pocket,2.142
+1984,Voluntary private,3.362
+1984,Government programs,3.786
+1985,Out-of-pocket,2.204
+1985,Voluntary private,3.479
+1985,Government programs,3.831
+1986,Out-of-pocket,2.262
+1986,Voluntary private,3.453
+1986,Government programs,3.973
+1987,Out-of-pocket,2.18
+1987,Voluntary private,3.58
+1987,Government programs,4.101
+1988,Out-of-pocket,2.22
+1988,Voluntary private,3.906
+1988,Government programs,4.1259999999999994
+1989,Out-of-pocket,2.173
+1989,Voluntary private,4.164
+1989,Government programs,4.27
+1990,Out-of-pocket,2.243
+1990,Voluntary private,4.454
+1990,Government programs,4.542
+1991,Out-of-pocket,2.221
+1991,Voluntary private,4.702
+1991,Government programs,4.994999999999999
+1992,Out-of-pocket,2.134
+1992,Voluntary private,4.783
+1992,Government programs,5.277
+1993,Out-of-pocket,2.045
+1993,Voluntary private,4.882
+1993,Government programs,5.525
+1994,Out-of-pocket,1.9
+1994,Voluntary private,4.796
+1994,Government programs,5.681
+1995,Out-of-pocket,1.858
+1995,Voluntary private,4.844
+1995,Government programs,5.79
+1996,Out-of-pocket,1.836
+1996,Voluntary private,4.851
+1996,Government programs,5.773
+1997,Out-of-pocket,1.85
+1997,Voluntary private,4.808
+1997,Government programs,5.709
+1998,Out-of-pocket,1.919
+1998,Voluntary private,4.88
+1998,Government programs,5.551
+1999,Out-of-pocket,1.913
+1999,Voluntary private,4.929
+1999,Government programs,5.494
+2000,Out-of-pocket,1.927
+2000,Voluntary private,5.012
+2000,Government programs,5.543
+2001,Out-of-pocket,1.945
+2001,Voluntary private,5.247
+2001,Government programs,5.968
+2002,Out-of-pocket,2.008
+2002,Voluntary private,5.659
+2002,Government programs,6.325
+2003,Out-of-pocket,2.055
+2003,Voluntary private,5.924
+2003,Government programs,6.523
+2004,Out-of-pocket,2.036
+2004,Voluntary private,5.902
+2004,Government programs,6.609
+2005,Out-of-pocket,2.032
+2005,Voluntary private,5.916
+2005,Government programs,6.629
+2006,Out-of-pocket,2.015
+2006,Voluntary private,5.902
+2006,Government programs,6.782
+2007,Out-of-pocket,2.033
+2007,Voluntary private,5.991
+2007,Government programs,6.885
+2008,Out-of-pocket,2.039
+2008,Voluntary private,5.964
+2008,Government programs,7.195
+2009,Out-of-pocket,2.06
+2009,Voluntary private,6.303
+2009,Government programs,7.829000000000001
+2010,Out-of-pocket,2.016
+2010,Voluntary private,6.29
+2010,Government programs,7.885
+2011,Out-of-pocket,2.002
+2011,Voluntary private,6.264
+2011,Government programs,7.872
+2012,Out-of-pocket,2.0
+2012,Voluntary private,6.275
+2012,Government programs,7.85
+2013,Out-of-pocket,1.977
+2013,Voluntary private,6.109
+2013,Government programs,7.884
+2014,Out-of-pocket,1.962
+2014,Voluntary private,0.874
+2014,Compulsory private,5.263
+2014,Government programs,8.088999999999999
+2015,Out-of-pocket,1.971
+2015,Voluntary private,0.865
+2015,Compulsory private,5.367
+2015,Government programs,8.261
+2016,Out-of-pocket,1.996
+2016,Voluntary private,0.908
+2016,Compulsory private,5.515
+2016,Government programs,8.359
+2017,Out-of-pocket,1.965
+2017,Voluntary private,0.948
+2017,Compulsory private,5.514
+2017,Government programs,8.302
+2018,Out-of-pocket,1.951
+2018,Voluntary private,0.943
+2018,Compulsory private,5.533
+2018,Government programs,8.251
+2019,Out-of-pocket,1.952
+2019,Voluntary private,0.977
+2019,Compulsory private,5.475
+2019,Government programs,8.341
+2020,Out-of-pocket,1.929
+2020,Voluntary private,1.008
+2020,Compulsory private,5.54
+2020,Government programs,10.257000000000001
+2021,Out-of-pocket,1.927
+2021,Voluntary private,0.964
+2021,Compulsory private,5.324
+2021,Government programs,9.315
+2022,Out-of-pocket,1.888
+2022,Voluntary private,0.848
+2022,Compulsory private,5.214
+2022,Government programs,8.794
+2023,Out-of-pocket,1.889
+2023,Voluntary private,0.927
+2023,Compulsory private,5.434
+2023,Government programs,8.62

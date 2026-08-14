@@ -1,0 +1,18 @@
+dataset: nama_10_gdp
+dataset_title: GDP and main components (annual)
+dataset_url: https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nama_10_gdp
+landing_page: https://ec.europa.eu/eurostat/databrowser/view/nama_10_gdp/default/table
+filters:
+  unit: CP_MEUR
+  na_item: B1GQ
+  geo: EU27_2020,BE,BG,CZ,DK,DE,EE,IE,EL,ES,FR,HR,IT,CY,LV,LT,LU,HU,MT,NL,AT,PL,PT,RO,SI,SK,FI,SE
+  time: "2023"
+benchmark:
+  geo: DE
+  na_item: B1GQ
+  unit: CP_MEUR
+  time: "2023"
+  expected_value: 4219310.0
+  tolerance: 1.0
+  description: "Germany GDP at current market prices, 2023 (million EUR)"
+terms: cc_by_4_0

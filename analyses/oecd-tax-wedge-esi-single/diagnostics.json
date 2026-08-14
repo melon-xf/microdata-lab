@@ -1,0 +1,44 @@
+{
+  "analysis": "oecd-tax-wedge-esi-single",
+  "release_id": "oecd_tax_wages-2025-511005655c1e",
+  "row_counts": {
+    "output_rows": 1206,
+    "wage_levels": 201,
+    "series": 6
+  },
+  "weighted_population": {
+    "note": "macrodata; no survey weight"
+  },
+  "missingness": {
+    "value": 0
+  },
+  "design": {
+    "type": "macrodata",
+    "weight": "none",
+    "replicate_weights": "none"
+  },
+  "uncertainty": {
+    "note": "no sampling variance; official macrodata"
+  },
+  "adjustment": {
+    "name": "US ESI single premium added to tax wedge (article method)",
+    "premium_total": 9325.0,
+    "premium_employer": 7885.0,
+    "premium_worker": 1440.0,
+    "source": "KFF 2025 Employer Health Benefits Survey"
+  },
+  "benchmark": {
+    "name": "US single AW100 wedge with ESI no longer lowest (within Nordic band)",
+    "observed": 37.946448165129254,
+    "expected": 35.75701271,
+    "tolerance": 0.0,
+    "passed": true,
+    "note": "Article states US pays 'just as much, if not more' at the average wage; replication finds US (37.95) is above Denmark (35.76) and Norway (36.39) but below the Nordic mean (38.94). The figure's defensible claim is that the US is no longer the lowest-tax country.",
+    "official_source": "OECD Tax Wages decomposition + KFF 2025",
+    "context": {
+      "observed_nordic_min": 35.75701271,
+      "observed_nordic_max": 42.47990817,
+      "observed_nordic_avg": 38.941074205
+    }
+  }
+}

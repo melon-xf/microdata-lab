@@ -1,0 +1,39 @@
+slug: atus
+collection: atus
+landing_page: https://www.atusdata.org/atus-action/samples/sample_ids
+sample_page: https://www.atusdata.org/atus-action/samples/sample_ids
+sample_id_pattern: ^at(?P<year>\d{4})$
+minimum_year: 2003
+latest_lag: 1
+data_format: csv
+weight: WT06
+variables:
+  - YEAR
+  - CASEID
+  - SERIAL
+  - PERNUM
+  - LINENO
+  - WT06
+  - AGE
+  - SEX
+  - RACE
+  - HISPAN
+  - EDUC
+  - EMPSTAT
+time_use_variables:
+  - BLS_LEIS
+  - BLS_PCARE
+time_use_variable_ids:
+  BLS_LEIS: 5916
+  BLS_PCARE: 5850
+sample_members:
+  includeNonRespondents: false
+  includeHouseholdMembers: false
+benchmark:
+  year: 2024
+  kind: weighted_mean_hours
+  variable: BLS_LEIS
+  weight: WT06
+  expected: 5.07
+  absolute_tolerance: 0.03
+  source: https://www.bls.gov/news.release/archives/atus_06262025.htm

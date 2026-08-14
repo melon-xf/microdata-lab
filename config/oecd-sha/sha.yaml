@@ -1,0 +1,20 @@
+slug: oecd_sha
+agency: OECD.ELS.HD
+flow: DSD_SHA@DF_SHA
+version: "1.1"
+key: USA+DNK+FIN+NOR+SWE.A.EXP_HEALTH.PT_B1GQ.._Z._T._T._T._Z._Z._Z
+dataset_title: Health expenditure and financing (System of Health Accounts)
+landing_page: https://data-explorer.oecd.org/vis?df[ds]=dsDisseminateFinalDMZ&df[id]=DSD_SHA@DF_SHA&df[ag]=OECD.ELS.HD&df[vs]=1.1
+reference_year: 2023
+start_period: "1970"
+output_name: sha_financing
+benchmark:
+  filters:
+    REF_AREA: USA
+    MEASURE: EXP_HEALTH
+    UNIT_MEASURE: PT_B1GQ
+    FINANCING_SCHEME: _T
+    TIME_PERIOD: "2023"
+  expected_value: null
+  tolerance: 0.01
+terms: oecd_open_use

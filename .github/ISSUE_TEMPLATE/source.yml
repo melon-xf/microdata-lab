@@ -1,0 +1,45 @@
+name: Source adapter proposal
+description: Propose an official or explicitly licensed microdata source
+title: "source: "
+labels: [source]
+body:
+  - type: input
+    id: agency
+    attributes:
+      label: Authoritative agency or provider
+    validations:
+      required: true
+  - type: input
+    id: landing-page
+    attributes:
+      label: Official landing page
+    validations:
+      required: true
+  - type: textarea
+    id: concept
+    attributes:
+      label: Analytical purpose
+      description: State the concept, record unit, universe, geography, and years.
+    validations:
+      required: true
+  - type: textarea
+    id: design
+    attributes:
+      label: Survey design
+      description: Identify weights, strata/PSUs, replicates, imputations or implicates, and missing-value semantics.
+    validations:
+      required: true
+  - type: textarea
+    id: benchmark
+    attributes:
+      label: Official benchmark
+      description: Link an official published estimate that can gate promotion.
+    validations:
+      required: true
+  - type: textarea
+    id: terms
+    attributes:
+      label: Access and redistribution terms
+      description: Identify credentials, account terms, and whether extracted data may be redistributed.
+    validations:
+      required: true

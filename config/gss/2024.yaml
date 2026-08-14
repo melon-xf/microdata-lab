@@ -1,0 +1,16 @@
+year: 2024
+landing_page: https://gss.norc.org/get-the-data/stata.html
+terms: norc_copyright_personal_use_only
+redistributable: false
+weight_column: wtssps
+benchmark:
+  variable: happy
+  description: "Weighted share reporting 'very happy' (happy==1)"
+  expected_share: 0.232
+  tolerance: 0.01
+roles:
+  - stata_zip
+  - codebook_pdf
+  - whats_new_pdf
+  - release_variables_pdf
+  - release_notes_pdf

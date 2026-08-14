@@ -1,0 +1,84 @@
+name: CI
+
+on:
+  push:
+    branches: [main, public-release]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.14"]
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v9.0.0
+        with:
+          enable-cache: true
+          python-version: ${{ matrix.python-version }}
+      - run: uv sync --all-extras --dev --locked
+      - if: matrix.python-version == '3.11'
+        run: uv run ruff check .
+      - if: matrix.python-version == '3.11'
+        run: uv run ruff format --check .
+      - if: matrix.python-version == '3.11'
+        run: uv run mypy src
+      - run: uv run pytest
+
+  static:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v9.0.0
+        with:
+          enable-cache: true
+          python-version: "3.11"
+      - uses: mamba-org/setup-micromamba@v3
+        with:
+          environment-file: environment.lock.yml
+          cache-environment: true
+      - run: uv sync --all-extras --locked
+      - name: Render static example
+        env:
+          MICRODATA_RSCRIPT: ${{ env.MAMBA_ROOT_PREFIX }}/envs/microdata-lab-r/bin/Rscript
+        run: >-
+          uv run microdata viz static
+          analyses/scf-2022-credit-card-by-net-worth-decile/data.csv
+          analyses/scf-2022-credit-card-by-net-worth-decile/chart.yaml
+          /tmp/figure.png
+
+  interactive:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: viz/interactive/package-lock.json
+      - uses: astral-sh/setup-uv@v9.0.0
+        with:
+          enable-cache: true
+          python-version: "3.11"
+      - run: npm ci
+        working-directory: viz/interactive
+      - run: uv sync --all-extras --locked
+      - run: npm run typecheck
+        working-directory: viz/interactive
+      - run: npx playwright install --with-deps chromium
+        working-directory: viz/interactive
+      - name: Render interactive example
+        run: >-
+          uv run microdata viz interactive
+          analyses/scf-2022-credit-card-by-net-worth-decile/data.csv
+          analyses/scf-2022-credit-card-by-net-worth-decile/chart.yaml
+          /tmp/interactive.html
+      - name: Browser QA at 375, 768, 1280, and 1920 pixels
+        run: npm run qa -- /tmp/interactive.html /tmp/screenshots
+        working-directory: viz/interactive

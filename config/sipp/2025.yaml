@@ -1,0 +1,36 @@
+year: 2025
+landing_page: https://www.census.gov/programs-surveys/sipp/data/datasets/2025-data/2025.html
+users_guide_url: https://www2.census.gov/programs-surveys/sipp/tech-documentation/methodology/2025_SIPP_Users_Guide.pdf
+required_roles:
+  - primary_data
+  - primary_schema
+  - primary_validation
+  - replicate_weights
+  - replicate_schema
+  - replicate_validation
+  - codebook
+  - release_notes
+  - input_example
+expected_primary_rows: 379215
+expected_primary_columns: 5203
+expected_replicate_rows: 378291
+expected_replicate_columns: 246
+expected_weight_columns: 241
+expected_positive_weight_rows: 378291
+expected_panel_min: 2022
+expected_months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+benchmark:
+  variable: TPTOTINC
+  expected_nonmissing: 323731
+  expected_mean: 4960.603764
+  absolute_tolerance: 0.00001
+  validation_workbook_mean: 4960.603764
+weight_contract:
+  primary: WPFINWGT
+  replicate_full_sample: REPWGT0
+  replicate_prefix: REPWGT
+  variance_replicates: 240
+  fay_adjustment: 0.5
+  expected_primary_mean: 10505.0
+  expected_replicate_mean: 10531.0
+  mean_tolerance: 0.5

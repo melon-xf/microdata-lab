@@ -1,0 +1,14 @@
+chart_type: bar
+orientation: horizontal
+title: Germany dominates EU-27 GDP, exceeding the next four members combined
+subtitle: GDP at current market prices (million euro), EU-27 member states, 2023
+source: Eurostat Statistics (JSON API v1), nama_10_gdp dataset
+note: Values in billion euro. No sampling variance; official macrodata.
+x: country
+y: gdp_billion_eur
+x_label: EU member state
+y_label: GDP (billion EUR)
+value_format: number
+color: '#008C95'
+width: 1600
+height: 1200

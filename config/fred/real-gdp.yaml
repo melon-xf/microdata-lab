@@ -1,0 +1,13 @@
+series_id: GDPC1
+series_title: Real Gross Domestic Product (chained 2017 dollars)
+series_url: https://fred.stlouisfed.org/series/GDPC1
+landing_page: https://fred.stlouisfed.org/
+reference_year: 2025
+benchmark:
+  period: "2025-10-01"
+  expected_value: 24055.749
+  tolerance: 0.001
+  description: Real GDP (GDPC1), 2025-Q4, billions of chained 2017 dollars (FRED)
+terms: fred_open_terms
+record_unit: quarterly_observation
+credential: FRED_API_KEY

@@ -1,0 +1,72 @@
+{
+  "analysis": "energy-2026-hormuz-inflation-watch",
+  "source_release_ids": [
+    "energy_watch-2026-ef48ea304859"
+  ],
+  "row_counts": {
+    "normalized_observations": 296,
+    "output_rows": 296,
+    "series": 3
+  },
+  "weighted_population": {
+    "not_applicable": true
+  },
+  "missingness": {
+    "output_missing_values": 0
+  },
+  "design": {
+    "record_unit": "market observation",
+    "event_baseline": "last published observation on or before 2026-02-27",
+    "frequencies": {
+      "DCOILBRENTEU": "daily",
+      "GASREGW": "weekly",
+      "T5YIE": "daily"
+    },
+    "hormuz_exposure_mbd_2024": 20.261741721311477,
+    "estimated_spare_bypass_mbd": 2.6
+  },
+  "uncertainty": {
+    "note": "Published market and sampled retail-price series. No sampling interval is reported for Brent or breakevens; EIA gasoline is a weighted sample of retail outlets."
+  },
+  "benchmark": {
+    "name": "Pinned pre-disruption observations",
+    "observed": 71.32,
+    "expected": 71.32,
+    "passed": true,
+    "series_checks": {
+      "EIA_HORMUZ_TOTAL_OIL": true,
+      "DCOILBRENTEU": true,
+      "GASREGW": true,
+      "T5YIE": true
+    }
+  },
+  "latest": {
+    "DCOILBRENTEU": {
+      "label": "Brent crude",
+      "baseline_date": "2026-02-27",
+      "baseline_value": 71.32,
+      "latest_date": "2026-08-11",
+      "latest_value": 93.26,
+      "percent_change": 30.76275939427933,
+      "absolute_change": 21.940000000000012
+    },
+    "GASREGW": {
+      "label": "Regular gasoline",
+      "baseline_date": "2026-02-23",
+      "baseline_value": 2.937,
+      "latest_date": "2026-08-10",
+      "latest_value": 4.006,
+      "percent_change": 36.39768471229148,
+      "absolute_change": 1.0690000000000004
+    },
+    "T5YIE": {
+      "label": "5-year inflation expectations",
+      "baseline_date": "2026-02-27",
+      "baseline_value": 2.4,
+      "latest_date": "2026-08-13",
+      "latest_value": 2.21,
+      "percent_change": -7.916666666666661,
+      "absolute_change": -0.18999999999999995
+    }
+  }
+}

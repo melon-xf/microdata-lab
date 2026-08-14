@@ -1,0 +1,32 @@
+{
+  "analysis": "shed-2025-wellbeing-by-race",
+  "release_id": "shed-2025-9a5cea7a2f8e",
+  "row_counts": {
+    "total_respondents": 12934,
+    "output_rows": 5
+  },
+  "weighted_population": {
+    "respondents": 12934
+  },
+  "missingness": {
+    "race_5cat": 0,
+    "atleast_okay": 0
+  },
+  "design": {
+    "main_weight": "weight",
+    "replicate_weights": "none in public release",
+    "note": "SHED provides analysis weights but no replicate weights; SE is simple proportion"
+  },
+  "uncertainty": {
+    "confidence_level": 0.95,
+    "interval_method": "normal approximation for proportions"
+  },
+  "benchmark": {
+    "name": "Overall share at least okay financially",
+    "observed": 0.7293,
+    "expected": 0.73,
+    "tolerance": 0.01,
+    "passed": true,
+    "official_source": "https://www.federalreserve.gov/publications/2026-economic-well-being-of-us-households-in-2025-overall-financial-well-being.htm"
+  }
+}

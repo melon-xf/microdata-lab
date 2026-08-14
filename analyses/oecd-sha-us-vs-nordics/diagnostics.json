@@ -1,0 +1,37 @@
+{
+  "analysis": "oecd-sha-us-vs-nordics",
+  "release_id": "oecd_sha-2023-127dc06a8300",
+  "row_counts": {
+    "output_rows": 5,
+    "countries": 5
+  },
+  "weighted_population": {
+    "note": "National accounts share of GDP; no person weights",
+    "us_2023": 16.87,
+    "nordic_mean_2023": 10.073
+  },
+  "missingness": {
+    "value": 0,
+    "note": "SDMX observations; countries requested = 5, all present"
+  },
+  "uncertainty": {
+    "measure": "none (census of national accounts)",
+    "replicate": "none"
+  },
+  "benchmark": {
+    "name": "US total health spending 16.9% of GDP 2023 (OECD SHA; matches prior validated analysis)",
+    "observed": 16.87,
+    "expected": 16.87,
+    "tolerance": 0.2,
+    "passed": true
+  },
+  "design": {
+    "type": "national_accounts_share",
+    "weight": "none",
+    "variance": "none (census of national accounts)"
+  },
+  "limitations": [
+    "Spending share of GDP is not a quality or outcome measure.",
+    "OECD SHA figures are national accounts; cross-country comparability depends on SHA implementation."
+  ]
+}

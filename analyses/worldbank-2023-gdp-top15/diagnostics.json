@@ -1,0 +1,30 @@
+{
+  "analysis": "worldbank-2023-gdp-top15",
+  "release_id": "worldbank-2023-b913afa94f69",
+  "row_counts": {
+    "total_observations": 265,
+    "output_rows": 15
+  },
+  "weighted_population": {
+    "note": "macrodata; no survey weight"
+  },
+  "missingness": {
+    "value": 14
+  },
+  "design": {
+    "type": "macrodata",
+    "weight": "none",
+    "replicate_weights": "none"
+  },
+  "uncertainty": {
+    "note": "no sampling variance; administrative/official data"
+  },
+  "benchmark": {
+    "name": "USA GDP 2023",
+    "observed": 27811517000000.0,
+    "expected": 27360900000000.0,
+    "tolerance": 0.01,
+    "passed": true,
+    "official_source": "World Bank Open Data API"
+  }
+}

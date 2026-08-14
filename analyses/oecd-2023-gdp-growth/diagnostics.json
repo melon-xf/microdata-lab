@@ -1,0 +1,30 @@
+{
+  "analysis": "oecd-2023-gdp-growth",
+  "release_id": "oecd-2023-77d3e9c12f88",
+  "row_counts": {
+    "total_observations": 48847,
+    "output_rows": 10
+  },
+  "weighted_population": {
+    "note": "macrodata; no survey weight"
+  },
+  "missingness": {
+    "value": 0
+  },
+  "design": {
+    "type": "macrodata",
+    "weight": "none",
+    "replicate_weights": "none"
+  },
+  "uncertainty": {
+    "note": "no sampling variance; official macrodata"
+  },
+  "benchmark": {
+    "name": "USA GDP growth Q1 2026",
+    "observed": 2.684743341,
+    "expected": 2.6,
+    "tolerance": 0.5,
+    "passed": true,
+    "official_source": "OECD SDMX-JSON API (QNA dataset)"
+  }
+}
