@@ -1,0 +1,48 @@
+slug: acs_pums
+collection: usa
+landing_page: https://usa.ipums.org/usa-action/samples/sample_ids
+sample_page: https://usa.ipums.org/usa-action/samples/sample_ids
+sample_id_pattern: ^us(?P<year>\d{4})a$
+minimum_year: 2005
+latest_lag: 0
+data_format: csv
+weight: PERWT
+variables:
+  - YEAR
+  - SAMPLE
+  - SERIAL
+  - HHWT
+  - CLUSTER
+  - STRATA
+  - GQ
+  - REGION
+  - STATEFIP
+  - PUMA
+  - PERNUM
+  - PERWT
+  - AGE
+  - SEX
+  - RACE
+  - HISPAN
+  - EDUC
+  - EMPSTAT
+  - LABFORCE
+  - OCC
+  - IND
+  - WKSWORK2
+  - UHRSWORK
+  - INCTOT
+  - FTOTINC
+  - INCWAGE
+  - POVERTY
+  - HCOVANY
+  - OWNERSHP
+  - RENT
+  - VALUEH
+benchmark:
+  year: 2024
+  kind: weighted_total
+  variable: PERWT
+  expected: 340110990
+  relative_tolerance: 0.005
+  source: https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF/data/1YRData/acsdt1y2024-b01003.dat

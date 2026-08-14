@@ -1,0 +1,17 @@
+dataset: QNA
+dataset_title: Quarterly National Accounts
+dataset_url: https://stats.oecd.org/SDMX-JSON/data/QNA
+frequency: Q
+landing_page: https://stats.oecd.org/Index.aspx?DatasetCode=QNA
+reference_year: 2023
+time_range:
+  start: "2023-Q1"
+  end: "2026-Q1"
+benchmark:
+  ref_area: USA
+  transaction: B1GQ
+  transformation: GY
+  frequency: Q
+  time_period: "2026-Q1"
+  expected_value: null
+  tolerance: 1.0

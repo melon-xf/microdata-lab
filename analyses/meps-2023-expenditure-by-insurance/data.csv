@@ -1,0 +1,4 @@
+insurance,estimate,standard_error,ci_low,ci_high,unweighted_n,weighted_pop,median
+Uninsured,1061.7,129.8,807.3,1316.1,1298,21198770,0.0
+Any private,7600.08,215.84,7177.03,8023.13,11040,215911541,2135.5
+Public only,8635.44,277.87,8090.82,9180.07,6581,97419962,2116.0

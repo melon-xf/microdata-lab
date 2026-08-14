@@ -1,0 +1,30 @@
+{
+  "analysis": "eurostat-2023-gdp-eu27",
+  "release_id": "eurostat-2023-ec3202b3765b",
+  "row_counts": {
+    "total_observations": 1093133,
+    "output_rows": 27
+  },
+  "weighted_population": {
+    "note": "macrodata; no survey weight"
+  },
+  "missingness": {
+    "value": 0
+  },
+  "design": {
+    "type": "macrodata",
+    "weight": "none",
+    "replicate_weights": "none"
+  },
+  "uncertainty": {
+    "note": "no sampling variance; official macrodata"
+  },
+  "benchmark": {
+    "name": "Germany GDP 2023",
+    "observed": 4219310.0,
+    "expected": 4219310.0,
+    "tolerance": 0.01,
+    "passed": true,
+    "official_source": "Eurostat JSON API (nama_10_gdp)"
+  }
+}

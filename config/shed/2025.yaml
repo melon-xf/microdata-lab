@@ -1,0 +1,30 @@
+year: 2025
+landing_page: https://www.federalreserve.gov/consumerscommunities/shed_data.htm
+required_roles:
+  - data_csv_zip
+  - data_stata_zip
+  - codebook
+  - report
+expected_rows: 12934
+required_columns:
+  - shedid
+  - year
+  - weight
+  - weight_pop
+  - panel_weight
+  - panel_weight_pop
+  - atleast_okay
+forbidden_columns:
+  - BK58
+benchmark:
+  kind: weighted_share
+  variable: atleast_okay
+  values:
+    - "Yes"
+  weight: weight
+  expected: 0.73
+  absolute_tolerance: 0.005
+  source_url: https://www.federalreserve.gov/publications/2026-economic-well-being-of-us-households-in-2025-overall-financial-well-being.htm
+report_url: https://www.federalreserve.gov/publications/files/2025-report-economic-well-being-us-households-202605.pdf
+record_unit: adult_respondent
+universe: U.S. adults represented by the 2025 SHED cross-sectional sample

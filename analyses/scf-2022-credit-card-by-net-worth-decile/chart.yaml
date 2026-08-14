@@ -1,0 +1,15 @@
+chart_type: bar
+orientation: vertical
+title: Credit-card debt peaks in the middle of the wealth distribution
+subtitle: Average revolving credit-card balance by family net-worth decile, 2022
+source: Federal Reserve Board, 2022 Survey of Consumer Finances public-use summary extract and replicate weights
+note: All families, including zero balances. 95% CI bounds from five implicates and 999 bootstrap replicate weights are in the fallback data table.
+x: decile
+y: estimate
+ci_low: ci_low
+ci_high: ci_high
+x_label: Family net-worth decile (lowest to highest)
+value_format: currency
+color: '#008C95'
+width: 1600
+height: 980

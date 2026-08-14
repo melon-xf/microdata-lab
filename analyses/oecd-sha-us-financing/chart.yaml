@@ -1,0 +1,46 @@
+chart_type: area
+title: "Government and compulsory sources finance most U.S. health spending (1970\u2013\
+  2023)"
+subtitle: "Share of current health expenditure by financing scheme, United States,\
+  \ 1970\u20132023"
+source: OECD, System of Health Accounts
+note: 'Bands: government programs (HF11 + HF121 social insurance), compulsory private
+  (HF122, ESI reclassified as compulsory after the ACA), voluntary private (HF2),
+  out-of-pocket (HF3).'
+x: year
+y: value
+series: label
+x_label: Year
+y_label: Percent of GDP
+x_ticks:
+- 1970
+- 1975
+- 1980
+- 1985
+- 1990
+- 1995
+- 2000
+- 2005
+- 2010
+- 2015
+- 2020
+y_ticks:
+- 0
+- 5
+- 10
+- 15
+- 20
+y_min: 0
+y_max: 20
+tick_suffix: '%'
+x_tick_suffix: ''
+vline:
+- x: 2014
+  label: ACA employer mandate (2014)
+  label_y: 18
+  hjust: 1
+value_format: number
+theme: swiss
+eyebrow: "health financing \xB7 1970\u20132023"
+width: 2200
+height: 1400

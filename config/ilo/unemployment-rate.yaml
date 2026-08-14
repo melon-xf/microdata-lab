@@ -1,0 +1,15 @@
+indicator_id: SDG_0852_SEX_AGE_RT_A
+indicator_code: SDG_0852_SEX_AGE_RT
+indicator_title: Unemployment rate by sex and age (%)
+indicator_url: https://ilostat.ilo.org/data/
+landing_page: https://ilostat.ilo.org/data/
+reference_year: 2023
+benchmark:
+  ref_area: USA
+  sex: SEX_T
+  classif1: AGE_YTHADULT_YGE15
+  expected_value: 3.638
+  tolerance: 0.01
+  description: Unemployment rate, age 15+, both sexes, United States, 2023 (ILO ILOSTAT SDG 8.5.2, ICLS13)
+terms: ilo_non_commercial_attribution
+record_unit: country_year_observation

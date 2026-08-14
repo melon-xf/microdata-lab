@@ -1,0 +1,15 @@
+dataset: acs/acs1
+dataset_title: American Community Survey 1-Year Estimates
+variables:
+  - B01001_001E  # Total population
+landing_page: https://www.census.gov/data/developers/data-sets/acs-1year.html
+reference_year: 2023
+benchmark:
+  variable: B01001_001E
+  geo: us
+  expected_value: 334914896
+  tolerance: 0.001
+  description: Total population, ACS 1-Year 2023 (Census API B01001_001E)
+terms: census_public_domain
+record_unit: table_estimate
+credential: CENSUS_API_KEY

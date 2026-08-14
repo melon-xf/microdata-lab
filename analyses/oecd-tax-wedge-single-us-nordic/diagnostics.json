@@ -1,0 +1,31 @@
+{
+  "analysis": "oecd-tax-wedge-single-us-nordic",
+  "release_id": "oecd_tax_wages-2025-511005655c1e",
+  "row_counts": {
+    "output_rows": 1005,
+    "wage_levels": 201,
+    "countries": 5
+  },
+  "weighted_population": {
+    "note": "macrodata; no survey weight"
+  },
+  "missingness": {
+    "value": 0
+  },
+  "design": {
+    "type": "macrodata",
+    "weight": "none",
+    "replicate_weights": "none"
+  },
+  "uncertainty": {
+    "note": "no sampling variance; official macrodata"
+  },
+  "benchmark": {
+    "name": "USA single AW100 average tax wedge 2025",
+    "observed": 29.97706635,
+    "expected": 29.98,
+    "tolerance": 0.1,
+    "passed": true,
+    "official_source": "OECD Tax Wages decomposition, DSD_TAX_WAGES_DECOMP"
+  }
+}

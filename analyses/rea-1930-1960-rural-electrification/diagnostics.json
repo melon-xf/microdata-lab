@@ -1,0 +1,34 @@
+{
+  "analysis": "rea-1930-1960-rural-electrification",
+  "row_counts": {
+    "series_points": 8,
+    "output_rows": 8
+  },
+  "weighted_population": {
+    "farms_1960": 3579650
+  },
+  "missingness": {
+    "none": 0
+  },
+  "design": {
+    "source": "USDA Agricultural Statistics yearbook editions (1940, 1950, 1955, 1961, 1964), 'Number and percentage of farms receiving central-station electric service' tables; 1930 from Census of Agriculture as tabulated in Ag. Statistics 1940 Table 745",
+    "definition": "Farms receiving central-station electric service (REA annual estimates), as a percentage of the Census of Agriculture farm count",
+    "unit": "percent of farms"
+  },
+  "uncertainty": {
+    "note": "Published official aggregates; no sampling variance published. REA estimates based on annual surveys."
+  },
+  "benchmark": {
+    "name": "Internal consistency of published REA/USDA figures",
+    "observed": 3838062,
+    "expected": 3838062,
+    "ratio": 1.0,
+    "passed": true,
+    "detail": {
+      "check1_published_increase_column": "4,582,016 - 743,954 = 3,838,062 (matches published increase column)",
+      "check2_1949_denominator": "4,582,016 / 0.782 = 5,859,355 farms (1945 Census farm count 5,859,169)",
+      "check3_1960_denominator": "3,579,650 / 0.965 = 3,709,482 farms (1959 Census farm count 3,703,894)"
+    },
+    "official_source": "USDA Agricultural Statistics 1950 Table 742; 1961 Table 807"
+  }
+}

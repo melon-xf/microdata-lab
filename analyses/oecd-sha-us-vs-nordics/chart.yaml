@@ -1,0 +1,18 @@
+chart_type: bar
+orientation: horizontal
+theme: swiss
+tick_suffix: "%"
+eyebrow: HEALTH SPENDING · 2023
+title: America already pays far more than the Nordics
+subtitle: Total health expenditure as a share of GDP, 2023, OECD System of Health Accounts
+source: OECD SHA 2023; release oecd_sha-2023-127dc06a8300
+notes: |
+  Spending share of GDP is not a quality or outcome measure. US 16.87% vs
+  Nordic mean 10.07% (+6.8pp). The "we can't afford single-payer" framing
+  is backwards: the obstacle is allocation, not resources. Figures are
+  national accounts, not a prediction of any reform's cost.
+x: country
+y: share_of_gdp
+show_value_labels: false
+width: 2200
+height: 1300

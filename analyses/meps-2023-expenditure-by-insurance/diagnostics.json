@@ -1,0 +1,33 @@
+{
+  "analysis": "meps-2023-expenditure-by-insurance",
+  "release_id": "meps-2023-71d2d7091b8d",
+  "release_sha256": "71d2d7091b8d1786edf2212b4520ce82fc7a3d7aafa8e64a4843fd9e34570b8d",
+  "row_counts": {
+    "total_persons": 18919,
+    "output_rows": 3
+  },
+  "weighted_population": {
+    "persons": 334530273
+  },
+  "missingness": {
+    "TOTEXP23": 0,
+    "PERWT23F": 0
+  },
+  "design": {
+    "main_weight": "PERWT23F",
+    "replicate_weights": "none in main PUF; variance via Taylor linearization approximation",
+    "note": "MEPS variance files (BRR) are separate; this analysis uses analytic SE approximation"
+  },
+  "uncertainty": {
+    "confidence_level": 0.95,
+    "interval_method": "normal approximation from weighted variance"
+  },
+  "benchmark": {
+    "name": "Overall weighted mean total expenditure",
+    "observed": 7487.26,
+    "expected": 7487.26,
+    "tolerance": 0.5,
+    "passed": true,
+    "official_source": "AHRQ MEPS HC-251 2023 data release"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "analysis": "ce-2024-expenditure-by-income-quintile",
+  "release_id": "ce-2024-69ef4ff25c24",
+  "row_counts": {
+    "total_families": 23176,
+    "output_rows": 5
+  },
+  "weighted_population": {
+    "families": 679272749
+  },
+  "missingness": {
+    "FINCBTAX": 0,
+    "TOTEXPPQ": 0,
+    "FINLWT21": 0
+  },
+  "design": {
+    "main_weight": "FINLWT21",
+    "replicate_count": 44,
+    "replicate_weight_prefix": "WTREP",
+    "quintile_tie_policy": "cumulative-weight midpoint assignment after stable sort by income"
+  },
+  "uncertainty": {
+    "confidence_level": 0.95,
+    "interval_method": "normal approximation from BRR replicate weights"
+  },
+  "benchmark": {
+    "name": "Interview-only annualized expenditure coverage of official combined figure",
+    "observed_quarterly": 13091.1,
+    "annualized_interview": 52364.39,
+    "official_combined": 78535.0,
+    "coverage_ratio": 0.6668,
+    "coverage_band": [
+      0.55,
+      0.75
+    ],
+    "observed": 0.6668,
+    "expected": null,
+    "tolerance": "coverage in (0.55, 0.75)",
+    "passed": true,
+    "official_source": "BLS Consumer Expenditures News Release 2024 (Table A/C), https://www.bls.gov/news.release/cesan.nr0.htm"
+  }
+}

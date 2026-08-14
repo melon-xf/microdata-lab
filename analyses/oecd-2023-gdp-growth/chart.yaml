@@ -1,0 +1,15 @@
+chart_type: bar
+orientation: horizontal
+title: GDP growth diverges across major economies in late 2026
+subtitle: Year-over-year GDP growth rate, top 10 OECD countries, latest available
+  quarter
+source: OECD Statistics (SDMX-JSON API), QNA dataset
+note: Growth rates are year-over-year percent changes in real GDP. No sampling variance.
+x: country
+y: gdp_growth_pct
+x_label: Country
+y_label: GDP growth (%)
+value_format: number
+color: '#008C95'
+width: 1600
+height: 980

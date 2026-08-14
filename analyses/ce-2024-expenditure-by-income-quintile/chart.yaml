@@ -1,0 +1,17 @@
+chart_type: bar
+orientation: vertical
+title: Higher-income families spend more, but not proportionally
+subtitle: Mean quarterly expenditure by income quintile, 2024 CE Interview Survey
+source: BLS, Consumer Expenditure Survey 2024 Interview Public Use File
+note: Weighted with FINLWT21. 95% CI bounds from 44 BRR replicate weights are in the
+  fallback data table.
+x: quintile
+y: estimate
+ci_low: ci_low
+ci_high: ci_high
+x_label: Income quintile
+y_label: Mean quarterly expenditure (USD)
+value_format: currency
+color: '#008C95'
+width: 1600
+height: 980

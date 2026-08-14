@@ -1,0 +1,14 @@
+chart_type: bar
+orientation: horizontal
+title: Global GDP varies 100x between richest and poorest major economies
+subtitle: GDP (current US$) for the 15 largest economies, 2023
+source: World Bank Open Data API (NY.GDP.MKTP.CD)
+note: Values in trillions USD. No sampling variance; official administrative data.
+x: country
+y: gdp_trillions
+x_label: Country
+y_label: GDP (trillions USD)
+value_format: number
+color: '#008C95'
+width: 1600
+height: 980

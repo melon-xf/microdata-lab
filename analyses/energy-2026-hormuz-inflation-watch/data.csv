@@ -1,0 +1,297 @@
+days_since_event,date,series,series_id,index,value,unit
+-25,2026-02-02,5-year inflation expectations,T5YIE,105.000000,2.520000,percent
+-25,2026-02-02,Brent crude,DCOILBRENTEU,94.952328,67.720000,dollars_per_barrel
+-25,2026-02-02,Regular gasoline,GASREGW,97.616616,2.867000,dollars_per_gallon
+-24,2026-02-03,5-year inflation expectations,T5YIE,105.416667,2.530000,percent
+-24,2026-02-03,Brent crude,DCOILBRENTEU,98.163208,70.010000,dollars_per_barrel
+-23,2026-02-04,5-year inflation expectations,T5YIE,104.583333,2.510000,percent
+-23,2026-02-04,Brent crude,DCOILBRENTEU,99.761638,71.150000,dollars_per_barrel
+-22,2026-02-05,5-year inflation expectations,T5YIE,103.333333,2.480000,percent
+-22,2026-02-05,Brent crude,DCOILBRENTEU,97.966910,69.870000,dollars_per_barrel
+-21,2026-02-06,5-year inflation expectations,T5YIE,104.166667,2.500000,percent
+-21,2026-02-06,Brent crude,DCOILBRENTEU,98.780146,70.450000,dollars_per_barrel
+-18,2026-02-09,5-year inflation expectations,T5YIE,104.166667,2.500000,percent
+-18,2026-02-09,Brent crude,DCOILBRENTEU,99.817723,71.190000,dollars_per_barrel
+-18,2026-02-09,Regular gasoline,GASREGW,98.808308,2.902000,dollars_per_gallon
+-17,2026-02-10,5-year inflation expectations,T5YIE,102.916667,2.470000,percent
+-17,2026-02-10,Brent crude,DCOILBRENTEU,99.565339,71.010000,dollars_per_barrel
+-16,2026-02-11,5-year inflation expectations,T5YIE,103.750000,2.490000,percent
+-16,2026-02-11,Brent crude,DCOILBRENTEU,100.280426,71.520000,dollars_per_barrel
+-15,2026-02-12,5-year inflation expectations,T5YIE,102.083333,2.450000,percent
+-15,2026-02-12,Brent crude,DCOILBRENTEU,97.868761,69.800000,dollars_per_barrel
+-14,2026-02-13,5-year inflation expectations,T5YIE,100.833333,2.420000,percent
+-14,2026-02-13,Brent crude,DCOILBRENTEU,98.093102,69.960000,dollars_per_barrel
+-11,2026-02-16,Brent crude,DCOILBRENTEU,99.284913,70.810000,dollars_per_barrel
+-11,2026-02-16,Regular gasoline,GASREGW,99.557371,2.924000,dollars_per_gallon
+-10,2026-02-17,5-year inflation expectations,T5YIE,99.583333,2.390000,percent
+-10,2026-02-17,Brent crude,DCOILBRENTEU,97.826697,69.770000,dollars_per_barrel
+-9,2026-02-18,5-year inflation expectations,T5YIE,101.250000,2.430000,percent
+-9,2026-02-18,Brent crude,DCOILBRENTEU,100.644980,71.780000,dollars_per_barrel
+-8,2026-02-19,5-year inflation expectations,T5YIE,101.250000,2.430000,percent
+-8,2026-02-19,Brent crude,DCOILBRENTEU,102.593943,73.170000,dollars_per_barrel
+-7,2026-02-20,5-year inflation expectations,T5YIE,101.250000,2.430000,percent
+-7,2026-02-20,Brent crude,DCOILBRENTEU,102.005048,72.750000,dollars_per_barrel
+-4,2026-02-23,5-year inflation expectations,T5YIE,100.000000,2.400000,percent
+-4,2026-02-23,Brent crude,DCOILBRENTEU,100.813236,71.900000,dollars_per_barrel
+-4,2026-02-23,Regular gasoline,GASREGW,100.000000,2.937000,dollars_per_gallon
+-3,2026-02-24,5-year inflation expectations,T5YIE,100.000000,2.400000,percent
+-3,2026-02-24,Brent crude,DCOILBRENTEU,99.845766,71.210000,dollars_per_barrel
+-2,2026-02-25,5-year inflation expectations,T5YIE,100.833333,2.420000,percent
+-2,2026-02-25,Brent crude,DCOILBRENTEU,99.116657,70.690000,dollars_per_barrel
+-1,2026-02-26,5-year inflation expectations,T5YIE,101.250000,2.430000,percent
+-1,2026-02-26,Brent crude,DCOILBRENTEU,100.476725,71.660000,dollars_per_barrel
+0,2026-02-27,5-year inflation expectations,T5YIE,100.000000,2.400000,percent
+0,2026-02-27,Brent crude,DCOILBRENTEU,100.000000,71.320000,dollars_per_barrel
+3,2026-03-02,5-year inflation expectations,T5YIE,102.500000,2.460000,percent
+3,2026-03-02,Brent crude,DCOILBRENTEU,108.300617,77.240000,dollars_per_barrel
+3,2026-03-02,Regular gasoline,GASREGW,102.655771,3.015000,dollars_per_gallon
+4,2026-03-03,5-year inflation expectations,T5YIE,102.500000,2.460000,percent
+4,2026-03-03,Brent crude,DCOILBRENTEU,116.769490,83.280000,dollars_per_barrel
+5,2026-03-04,5-year inflation expectations,T5YIE,102.500000,2.460000,percent
+5,2026-03-04,Brent crude,DCOILBRENTEU,114.357824,81.560000,dollars_per_barrel
+6,2026-03-05,5-year inflation expectations,T5YIE,104.583333,2.510000,percent
+6,2026-03-05,Brent crude,DCOILBRENTEU,124.214807,88.590000,dollars_per_barrel
+7,2026-03-06,5-year inflation expectations,T5YIE,106.666667,2.560000,percent
+7,2026-03-06,Brent crude,DCOILBRENTEU,134.240045,95.740000,dollars_per_barrel
+10,2026-03-09,5-year inflation expectations,T5YIE,106.666667,2.560000,percent
+10,2026-03-09,Brent crude,DCOILBRENTEU,132.291082,94.350000,dollars_per_barrel
+10,2026-03-09,Regular gasoline,GASREGW,119.237317,3.502000,dollars_per_gallon
+11,2026-03-10,5-year inflation expectations,T5YIE,105.416667,2.530000,percent
+11,2026-03-10,Brent crude,DCOILBRENTEU,125.967471,89.840000,dollars_per_barrel
+12,2026-03-11,5-year inflation expectations,T5YIE,107.500000,2.580000,percent
+12,2026-03-11,Brent crude,DCOILBRENTEU,127.565900,90.980000,dollars_per_barrel
+13,2026-03-12,5-year inflation expectations,T5YIE,109.583333,2.630000,percent
+13,2026-03-12,Brent crude,DCOILBRENTEU,143.550196,102.380000,dollars_per_barrel
+14,2026-03-13,5-year inflation expectations,T5YIE,108.750000,2.610000,percent
+14,2026-03-13,Brent crude,DCOILBRENTEU,144.742008,103.230000,dollars_per_barrel
+17,2026-03-16,5-year inflation expectations,T5YIE,107.500000,2.580000,percent
+17,2026-03-16,Brent crude,DCOILBRENTEU,141.671340,101.040000,dollars_per_barrel
+17,2026-03-16,Regular gasoline,GASREGW,126.659857,3.720000,dollars_per_gallon
+18,2026-03-17,5-year inflation expectations,T5YIE,109.166667,2.620000,percent
+18,2026-03-17,Brent crude,DCOILBRENTEU,151.977005,108.390000,dollars_per_barrel
+19,2026-03-18,5-year inflation expectations,T5YIE,110.833333,2.660000,percent
+19,2026-03-18,Brent crude,DCOILBRENTEU,165.577678,118.090000,dollars_per_barrel
+20,2026-03-19,5-year inflation expectations,T5YIE,108.750000,2.610000,percent
+20,2026-03-19,Brent crude,DCOILBRENTEU,155.706674,111.050000,dollars_per_barrel
+21,2026-03-20,5-year inflation expectations,T5YIE,109.583333,2.630000,percent
+21,2026-03-20,Brent crude,DCOILBRENTEU,166.040381,118.420000,dollars_per_barrel
+24,2026-03-23,5-year inflation expectations,T5YIE,105.416667,2.530000,percent
+24,2026-03-23,Brent crude,DCOILBRENTEU,145.527201,103.790000,dollars_per_barrel
+24,2026-03-23,Regular gasoline,GASREGW,134.865509,3.961000,dollars_per_gallon
+25,2026-03-24,5-year inflation expectations,T5YIE,106.250000,2.550000,percent
+25,2026-03-24,Brent crude,DCOILBRENTEU,152.019069,108.420000,dollars_per_barrel
+26,2026-03-25,5-year inflation expectations,T5YIE,104.583333,2.510000,percent
+26,2026-03-25,Brent crude,DCOILBRENTEU,153.028603,109.140000,dollars_per_barrel
+27,2026-03-26,5-year inflation expectations,T5YIE,106.666667,2.560000,percent
+27,2026-03-26,Brent crude,DCOILBRENTEU,158.987661,113.390000,dollars_per_barrel
+28,2026-03-27,5-year inflation expectations,T5YIE,106.666667,2.560000,percent
+28,2026-03-27,Brent crude,DCOILBRENTEU,170.316882,121.470000,dollars_per_barrel
+31,2026-03-30,5-year inflation expectations,T5YIE,107.083333,2.570000,percent
+31,2026-03-30,Brent crude,DCOILBRENTEU,170.891755,121.880000,dollars_per_barrel
+31,2026-03-30,Regular gasoline,GASREGW,135.852911,3.990000,dollars_per_gallon
+32,2026-03-31,5-year inflation expectations,T5YIE,105.833333,2.540000,percent
+32,2026-03-31,Brent crude,DCOILBRENTEU,177.636007,126.690000,dollars_per_barrel
+33,2026-04-01,5-year inflation expectations,T5YIE,106.250000,2.550000,percent
+33,2026-04-01,Brent crude,DCOILBRENTEU,167.638811,119.560000,dollars_per_barrel
+34,2026-04-02,5-year inflation expectations,T5YIE,107.083333,2.570000,percent
+34,2026-04-02,Brent crude,DCOILBRENTEU,178.925967,127.610000,dollars_per_barrel
+35,2026-04-03,5-year inflation expectations,T5YIE,108.750000,2.610000,percent
+38,2026-04-06,5-year inflation expectations,T5YIE,108.333333,2.600000,percent
+38,2026-04-06,Regular gasoline,GASREGW,140.279196,4.120000,dollars_per_gallon
+39,2026-04-07,5-year inflation expectations,T5YIE,108.750000,2.610000,percent
+39,2026-04-07,Brent crude,DCOILBRENTEU,193.788559,138.210000,dollars_per_barrel
+40,2026-04-08,5-year inflation expectations,T5YIE,106.666667,2.560000,percent
+40,2026-04-08,Brent crude,DCOILBRENTEU,171.214246,122.110000,dollars_per_barrel
+41,2026-04-09,5-year inflation expectations,T5YIE,106.666667,2.560000,percent
+41,2026-04-09,Brent crude,DCOILBRENTEU,166.895681,119.030000,dollars_per_barrel
+42,2026-04-10,5-year inflation expectations,T5YIE,107.500000,2.580000,percent
+42,2026-04-10,Brent crude,DCOILBRENTEU,166.951767,119.070000,dollars_per_barrel
+45,2026-04-13,5-year inflation expectations,T5YIE,108.750000,2.610000,percent
+45,2026-04-13,Brent crude,DCOILBRENTEU,172.854739,123.280000,dollars_per_barrel
+45,2026-04-13,Regular gasoline,GASREGW,140.381342,4.123000,dollars_per_gallon
+46,2026-04-14,5-year inflation expectations,T5YIE,107.916667,2.590000,percent
+46,2026-04-14,Brent crude,DCOILBRENTEU,166.418957,118.690000,dollars_per_barrel
+47,2026-04-15,5-year inflation expectations,T5YIE,108.750000,2.610000,percent
+47,2026-04-15,Brent crude,DCOILBRENTEU,161.146943,114.930000,dollars_per_barrel
+48,2026-04-16,5-year inflation expectations,T5YIE,108.333333,2.600000,percent
+48,2026-04-16,Brent crude,DCOILBRENTEU,163.530566,116.630000,dollars_per_barrel
+49,2026-04-17,5-year inflation expectations,T5YIE,106.666667,2.560000,percent
+49,2026-04-17,Brent crude,DCOILBRENTEU,138.292204,98.630000,dollars_per_barrel
+52,2026-04-20,5-year inflation expectations,T5YIE,107.083333,2.570000,percent
+52,2026-04-20,Brent crude,DCOILBRENTEU,144.980370,103.400000,dollars_per_barrel
+52,2026-04-20,Regular gasoline,GASREGW,137.691522,4.044000,dollars_per_gallon
+53,2026-04-21,5-year inflation expectations,T5YIE,108.333333,2.600000,percent
+53,2026-04-21,Brent crude,DCOILBRENTEU,148.822210,106.140000,dollars_per_barrel
+54,2026-04-22,5-year inflation expectations,T5YIE,108.750000,2.610000,percent
+54,2026-04-22,Brent crude,DCOILBRENTEU,159.057768,113.440000,dollars_per_barrel
+55,2026-04-23,5-year inflation expectations,T5YIE,107.500000,2.580000,percent
+55,2026-04-23,Brent crude,DCOILBRENTEU,158.791363,113.250000,dollars_per_barrel
+56,2026-04-24,5-year inflation expectations,T5YIE,108.750000,2.610000,percent
+56,2026-04-24,Brent crude,DCOILBRENTEU,156.842400,111.860000,dollars_per_barrel
+59,2026-04-27,5-year inflation expectations,T5YIE,109.166667,2.620000,percent
+59,2026-04-27,Brent crude,DCOILBRENTEU,159.688727,113.890000,dollars_per_barrel
+59,2026-04-27,Regular gasoline,GASREGW,140.381342,4.123000,dollars_per_gallon
+60,2026-04-28,5-year inflation expectations,T5YIE,109.583333,2.630000,percent
+60,2026-04-28,Brent crude,DCOILBRENTEU,164.918676,117.620000,dollars_per_barrel
+61,2026-04-29,5-year inflation expectations,T5YIE,111.250000,2.670000,percent
+61,2026-04-29,Brent crude,DCOILBRENTEU,174.088615,124.160000,dollars_per_barrel
+62,2026-04-30,5-year inflation expectations,T5YIE,111.250000,2.670000,percent
+62,2026-04-30,Brent crude,DCOILBRENTEU,174.200785,124.240000,dollars_per_barrel
+63,2026-05-01,5-year inflation expectations,T5YIE,112.083333,2.690000,percent
+63,2026-05-01,Brent crude,DCOILBRENTEU,165.816040,118.260000,dollars_per_barrel
+66,2026-05-04,5-year inflation expectations,T5YIE,113.333333,2.720000,percent
+66,2026-05-04,Regular gasoline,GASREGW,151.583248,4.452000,dollars_per_gallon
+67,2026-05-05,5-year inflation expectations,T5YIE,111.250000,2.670000,percent
+67,2026-05-05,Brent crude,DCOILBRENTEU,160.558048,114.510000,dollars_per_barrel
+68,2026-05-06,5-year inflation expectations,T5YIE,107.500000,2.580000,percent
+68,2026-05-06,Brent crude,DCOILBRENTEU,145.401010,103.700000,dollars_per_barrel
+69,2026-05-07,5-year inflation expectations,T5YIE,108.750000,2.610000,percent
+69,2026-05-07,Brent crude,DCOILBRENTEU,142.765003,101.820000,dollars_per_barrel
+70,2026-05-08,5-year inflation expectations,T5YIE,109.166667,2.620000,percent
+70,2026-05-08,Brent crude,DCOILBRENTEU,145.092541,103.480000,dollars_per_barrel
+73,2026-05-11,5-year inflation expectations,T5YIE,111.250000,2.670000,percent
+73,2026-05-11,Brent crude,DCOILBRENTEU,148.780146,106.110000,dollars_per_barrel
+73,2026-05-11,Regular gasoline,GASREGW,153.217569,4.500000,dollars_per_gallon
+74,2026-05-12,5-year inflation expectations,T5YIE,112.083333,2.690000,percent
+74,2026-05-12,Brent crude,DCOILBRENTEU,156.155356,111.370000,dollars_per_barrel
+75,2026-05-13,5-year inflation expectations,T5YIE,112.500000,2.700000,percent
+75,2026-05-13,Brent crude,DCOILBRENTEU,154.627033,110.280000,dollars_per_barrel
+76,2026-05-14,5-year inflation expectations,T5YIE,111.250000,2.670000,percent
+76,2026-05-14,Brent crude,DCOILBRENTEU,155.510376,110.910000,dollars_per_barrel
+77,2026-05-15,5-year inflation expectations,T5YIE,112.500000,2.700000,percent
+77,2026-05-15,Brent crude,DCOILBRENTEU,159.786876,113.960000,dollars_per_barrel
+80,2026-05-18,5-year inflation expectations,T5YIE,112.083333,2.690000,percent
+80,2026-05-18,Brent crude,DCOILBRENTEU,163.670780,116.730000,dollars_per_barrel
+80,2026-05-18,Regular gasoline,GASREGW,152.877085,4.490000,dollars_per_gallon
+81,2026-05-19,5-year inflation expectations,T5YIE,110.833333,2.660000,percent
+81,2026-05-19,Brent crude,DCOILBRENTEU,160.740325,114.640000,dollars_per_barrel
+82,2026-05-20,5-year inflation expectations,T5YIE,107.916667,2.590000,percent
+82,2026-05-20,Brent crude,DCOILBRENTEU,152.734156,108.930000,dollars_per_barrel
+83,2026-05-21,5-year inflation expectations,T5YIE,107.083333,2.570000,percent
+83,2026-05-21,Brent crude,DCOILBRENTEU,148.401570,105.840000,dollars_per_barrel
+84,2026-05-22,5-year inflation expectations,T5YIE,105.833333,2.540000,percent
+84,2026-05-22,Brent crude,DCOILBRENTEU,149.887830,106.900000,dollars_per_barrel
+87,2026-05-25,Regular gasoline,GASREGW,152.366360,4.475000,dollars_per_gallon
+88,2026-05-26,5-year inflation expectations,T5YIE,105.416667,2.530000,percent
+88,2026-05-26,Brent crude,DCOILBRENTEU,144.068985,102.750000,dollars_per_barrel
+89,2026-05-27,5-year inflation expectations,T5YIE,105.416667,2.530000,percent
+89,2026-05-27,Brent crude,DCOILBRENTEU,136.160965,97.110000,dollars_per_barrel
+90,2026-05-28,5-year inflation expectations,T5YIE,105.833333,2.540000,percent
+90,2026-05-28,Brent crude,DCOILBRENTEU,133.861469,95.470000,dollars_per_barrel
+91,2026-05-29,5-year inflation expectations,T5YIE,105.000000,2.520000,percent
+91,2026-05-29,Brent crude,DCOILBRENTEU,130.229950,92.880000,dollars_per_barrel
+94,2026-06-01,5-year inflation expectations,T5YIE,105.833333,2.540000,percent
+94,2026-06-01,Brent crude,DCOILBRENTEU,137.815480,98.290000,dollars_per_barrel
+94,2026-06-01,Regular gasoline,GASREGW,146.578141,4.305000,dollars_per_gallon
+95,2026-06-02,5-year inflation expectations,T5YIE,105.000000,2.520000,percent
+95,2026-06-02,Brent crude,DCOILBRENTEU,138.095906,98.490000,dollars_per_barrel
+96,2026-06-03,5-year inflation expectations,T5YIE,105.416667,2.530000,percent
+96,2026-06-03,Brent crude,DCOILBRENTEU,142.582726,101.690000,dollars_per_barrel
+97,2026-06-04,5-year inflation expectations,T5YIE,103.333333,2.480000,percent
+97,2026-06-04,Brent crude,DCOILBRENTEU,138.782950,98.980000,dollars_per_barrel
+98,2026-06-05,5-year inflation expectations,T5YIE,103.333333,2.480000,percent
+98,2026-06-05,Brent crude,DCOILBRENTEU,136.413348,97.290000,dollars_per_barrel
+101,2026-06-08,5-year inflation expectations,T5YIE,102.916667,2.470000,percent
+101,2026-06-08,Brent crude,DCOILBRENTEU,136.651711,97.460000,dollars_per_barrel
+101,2026-06-08,Regular gasoline,GASREGW,141.164454,4.146000,dollars_per_gallon
+102,2026-06-09,5-year inflation expectations,T5YIE,101.666667,2.440000,percent
+102,2026-06-09,Brent crude,DCOILBRENTEU,132.010656,94.150000,dollars_per_barrel
+103,2026-06-10,5-year inflation expectations,T5YIE,101.666667,2.440000,percent
+103,2026-06-10,Brent crude,DCOILBRENTEU,134.226024,95.730000,dollars_per_barrel
+104,2026-06-11,5-year inflation expectations,T5YIE,100.000000,2.400000,percent
+104,2026-06-11,Brent crude,DCOILBRENTEU,130.173864,92.840000,dollars_per_barrel
+105,2026-06-12,5-year inflation expectations,T5YIE,99.583333,2.390000,percent
+105,2026-06-12,Brent crude,DCOILBRENTEU,124.284913,88.640000,dollars_per_barrel
+108,2026-06-15,5-year inflation expectations,T5YIE,100.000000,2.400000,percent
+108,2026-06-15,Brent crude,DCOILBRENTEU,118.283791,84.360000,dollars_per_barrel
+108,2026-06-15,Regular gasoline,GASREGW,137.963909,4.052000,dollars_per_gallon
+109,2026-06-16,5-year inflation expectations,T5YIE,98.333333,2.360000,percent
+109,2026-06-16,Brent crude,DCOILBRENTEU,112.871565,80.500000,dollars_per_barrel
+110,2026-06-17,5-year inflation expectations,T5YIE,96.250000,2.310000,percent
+110,2026-06-17,Brent crude,DCOILBRENTEU,112.633202,80.330000,dollars_per_barrel
+111,2026-06-18,5-year inflation expectations,T5YIE,94.583333,2.270000,percent
+111,2026-06-18,Brent crude,DCOILBRENTEU,111.259114,79.350000,dollars_per_barrel
+112,2026-06-19,Brent crude,DCOILBRENTEU,112.815480,80.460000,dollars_per_barrel
+115,2026-06-22,5-year inflation expectations,T5YIE,95.000000,2.280000,percent
+115,2026-06-22,Brent crude,DCOILBRENTEU,107.249019,76.490000,dollars_per_barrel
+115,2026-06-22,Regular gasoline,GASREGW,133.265237,3.914000,dollars_per_gallon
+116,2026-06-23,5-year inflation expectations,T5YIE,93.333333,2.240000,percent
+116,2026-06-23,Brent crude,DCOILBRENTEU,106.127314,75.690000,dollars_per_barrel
+117,2026-06-24,5-year inflation expectations,T5YIE,91.250000,2.190000,percent
+117,2026-06-24,Brent crude,DCOILBRENTEU,101.079641,72.090000,dollars_per_barrel
+118,2026-06-25,5-year inflation expectations,T5YIE,92.916667,2.230000,percent
+118,2026-06-25,Brent crude,DCOILBRENTEU,103.393158,73.740000,dollars_per_barrel
+119,2026-06-26,5-year inflation expectations,T5YIE,92.083333,2.210000,percent
+119,2026-06-26,Brent crude,DCOILBRENTEU,98.373528,70.160000,dollars_per_barrel
+122,2026-06-29,5-year inflation expectations,T5YIE,93.333333,2.240000,percent
+122,2026-06-29,Brent crude,DCOILBRENTEU,100.378575,71.590000,dollars_per_barrel
+122,2026-06-29,Regular gasoline,GASREGW,130.439224,3.831000,dollars_per_gallon
+123,2026-06-30,5-year inflation expectations,T5YIE,94.166667,2.260000,percent
+123,2026-06-30,Brent crude,DCOILBRENTEU,98.794167,70.460000,dollars_per_barrel
+124,2026-07-01,5-year inflation expectations,T5YIE,94.166667,2.260000,percent
+124,2026-07-01,Brent crude,DCOILBRENTEU,97.083567,69.240000,dollars_per_barrel
+125,2026-07-02,5-year inflation expectations,T5YIE,93.333333,2.240000,percent
+125,2026-07-02,Brent crude,DCOILBRENTEU,96.088054,68.530000,dollars_per_barrel
+126,2026-07-03,Brent crude,DCOILBRENTEU,96.298374,68.680000,dollars_per_barrel
+129,2026-07-06,5-year inflation expectations,T5YIE,94.583333,2.270000,percent
+129,2026-07-06,Brent crude,DCOILBRENTEU,97.532249,69.560000,dollars_per_barrel
+129,2026-07-06,Regular gasoline,GASREGW,128.600613,3.777000,dollars_per_gallon
+130,2026-07-07,5-year inflation expectations,T5YIE,95.000000,2.280000,percent
+130,2026-07-07,Brent crude,DCOILBRENTEU,100.644980,71.780000,dollars_per_barrel
+131,2026-07-08,5-year inflation expectations,T5YIE,96.250000,2.310000,percent
+131,2026-07-08,Brent crude,DCOILBRENTEU,107.263040,76.500000,dollars_per_barrel
+132,2026-07-09,5-year inflation expectations,T5YIE,95.000000,2.280000,percent
+132,2026-07-09,Brent crude,DCOILBRENTEU,104.402692,74.460000,dollars_per_barrel
+133,2026-07-10,5-year inflation expectations,T5YIE,95.000000,2.280000,percent
+133,2026-07-10,Brent crude,DCOILBRENTEU,104.234436,74.340000,dollars_per_barrel
+136,2026-07-13,5-year inflation expectations,T5YIE,96.250000,2.310000,percent
+136,2026-07-13,Brent crude,DCOILBRENTEU,114.441952,81.620000,dollars_per_barrel
+136,2026-07-13,Regular gasoline,GASREGW,131.256384,3.855000,dollars_per_gallon
+137,2026-07-14,5-year inflation expectations,T5YIE,95.000000,2.280000,percent
+137,2026-07-14,Brent crude,DCOILBRENTEU,117.344363,83.690000,dollars_per_barrel
+138,2026-07-15,5-year inflation expectations,T5YIE,93.750000,2.250000,percent
+138,2026-07-15,Brent crude,DCOILBRENTEU,116.489063,83.080000,dollars_per_barrel
+139,2026-07-16,5-year inflation expectations,T5YIE,93.333333,2.240000,percent
+139,2026-07-16,Brent crude,DCOILBRENTEU,113.895121,81.230000,dollars_per_barrel
+140,2026-07-17,5-year inflation expectations,T5YIE,94.583333,2.270000,percent
+140,2026-07-17,Brent crude,DCOILBRENTEU,119.195177,85.010000,dollars_per_barrel
+143,2026-07-20,5-year inflation expectations,T5YIE,95.000000,2.280000,percent
+143,2026-07-20,Brent crude,DCOILBRENTEU,121.971397,86.990000,dollars_per_barrel
+143,2026-07-20,Regular gasoline,GASREGW,136.227443,4.001000,dollars_per_gallon
+144,2026-07-21,5-year inflation expectations,T5YIE,95.000000,2.280000,percent
+144,2026-07-21,Brent crude,DCOILBRENTEU,131.590017,93.850000,dollars_per_barrel
+145,2026-07-22,5-year inflation expectations,T5YIE,95.833333,2.300000,percent
+145,2026-07-22,Brent crude,DCOILBRENTEU,131.968592,94.120000,dollars_per_barrel
+146,2026-07-23,5-year inflation expectations,T5YIE,95.416667,2.290000,percent
+146,2026-07-23,Brent crude,DCOILBRENTEU,147.672462,105.320000,dollars_per_barrel
+147,2026-07-24,5-year inflation expectations,T5YIE,93.333333,2.240000,percent
+147,2026-07-24,Brent crude,DCOILBRENTEU,140.647785,100.310000,dollars_per_barrel
+150,2026-07-27,5-year inflation expectations,T5YIE,90.833333,2.180000,percent
+150,2026-07-27,Brent crude,DCOILBRENTEU,128.743690,91.820000,dollars_per_barrel
+150,2026-07-27,Regular gasoline,GASREGW,139.462036,4.096000,dollars_per_gallon
+151,2026-07-28,5-year inflation expectations,T5YIE,90.000000,2.160000,percent
+151,2026-07-28,Brent crude,DCOILBRENTEU,119.896242,85.510000,dollars_per_barrel
+152,2026-07-29,5-year inflation expectations,T5YIE,93.333333,2.240000,percent
+152,2026-07-29,Brent crude,DCOILBRENTEU,128.925967,91.950000,dollars_per_barrel
+153,2026-07-30,5-year inflation expectations,T5YIE,93.333333,2.240000,percent
+153,2026-07-30,Brent crude,DCOILBRENTEU,128.869882,91.910000,dollars_per_barrel
+154,2026-07-31,5-year inflation expectations,T5YIE,94.166667,2.260000,percent
+154,2026-07-31,Brent crude,DCOILBRENTEU,135.936624,96.950000,dollars_per_barrel
+157,2026-08-03,5-year inflation expectations,T5YIE,92.916667,2.230000,percent
+157,2026-08-03,Brent crude,DCOILBRENTEU,124.649467,88.900000,dollars_per_barrel
+157,2026-08-03,Regular gasoline,GASREGW,138.883214,4.079000,dollars_per_gallon
+158,2026-08-04,5-year inflation expectations,T5YIE,91.250000,2.190000,percent
+158,2026-08-04,Brent crude,DCOILBRENTEU,121.242288,86.470000,dollars_per_barrel
+159,2026-08-05,5-year inflation expectations,T5YIE,90.833333,2.180000,percent
+159,2026-08-05,Brent crude,DCOILBRENTEU,121.494672,86.650000,dollars_per_barrel
+160,2026-08-06,5-year inflation expectations,T5YIE,92.916667,2.230000,percent
+160,2026-08-06,Brent crude,DCOILBRENTEU,125.701066,89.650000,dollars_per_barrel
+161,2026-08-07,5-year inflation expectations,T5YIE,92.500000,2.220000,percent
+161,2026-08-07,Brent crude,DCOILBRENTEU,122.854739,87.620000,dollars_per_barrel
+164,2026-08-10,5-year inflation expectations,T5YIE,93.750000,2.250000,percent
+164,2026-08-10,Brent crude,DCOILBRENTEU,130.033651,92.740000,dollars_per_barrel
+164,2026-08-10,Regular gasoline,GASREGW,136.397685,4.006000,dollars_per_gallon
+165,2026-08-11,5-year inflation expectations,T5YIE,92.916667,2.230000,percent
+165,2026-08-11,Brent crude,DCOILBRENTEU,130.762759,93.260000,dollars_per_barrel
+166,2026-08-12,5-year inflation expectations,T5YIE,93.333333,2.240000,percent
+167,2026-08-13,5-year inflation expectations,T5YIE,92.083333,2.210000,percent

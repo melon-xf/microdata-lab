@@ -1,0 +1,81 @@
+[project]
+name = "microdata-lab"
+version = "0.1.0"
+description = "Zero-manual-download public microdata acquisition, cataloging, analysis, and visualization"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+dependencies = [
+  "duckdb>=1.3.0",
+  "filelock>=3.18.0",
+  "httpx>=0.28.1",
+  "numpy>=2.2.0",
+  "pandas>=2.2.3",
+  "platformdirs>=4.3.8",
+  "pydantic>=2.11.7",
+  "pyarrow>=19.0.0",
+  "python-dotenv>=1.1.1",
+  "pyreadstat>=1.2.8",
+  "pyyaml>=6.0.2",
+  "rich>=14.0.0",
+  "selectolax>=0.3.31",
+  "typer>=0.16.0",
+  "openpyxl>=3.1.5",
+  "curl-cffi>=0.16.0",
+]
+
+[project.optional-dependencies]
+docs = ["pypdf>=5.6.0"]
+dev = [
+  "mypy>=1.16.0",
+  "pandas-stubs>=2.2.3",
+  "pillow>=11.0.0",
+  "pytest>=8.4.0",
+  "pytest-cov>=6.2.0",
+  "respx>=0.22.0",
+  "ruff>=0.12.0",
+  "types-pyyaml>=6.0.12.20250516",
+]
+
+[project.scripts]
+microdata = "microdata_lab.cli:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/microdata_lab"]
+
+[tool.pytest.ini_options]
+addopts = "-q --strict-markers"
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM", "RUF"]
+# The project uses typographic punctuation intentionally in chart copy,
+# docstrings, and publication notes. These rules mistake that copy for
+# ambiguous identifiers; they do not improve runtime correctness here.
+ignore = ["RUF001", "RUF002", "RUF003"]
+
+[tool.ruff.lint.per-file-ignores]
+"src/microdata_lab/cli.py" = ["B008"]
+"analyses/*/estimate.py" = ["E501"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+packages = ["microdata_lab"]
+
+[[tool.mypy.overrides]]
+module = ["pyarrow", "pyarrow.*"]
+ignore_missing_imports = true
+
+[dependency-groups]
+dev = [
+    "types-openpyxl>=3.1.5.20260724",
+]

@@ -1,0 +1,41 @@
+chart_type: line
+title: Health premiums erase most of America's low-tax advantage (2025)
+subtitle: Average tax wedge by percent of average wage, single adults with no children
+source: OECD, Labor Tax Decomposition, 2025; KFF Employer Health Benefits Survey,
+  2025
+note: US + Health Insurance adds the average single-coverage premium ($9,325) to the
+  wedge and employer share ($7,885) to labor cost.
+x: wage_pct
+y: avg_tax_wedge
+series: country
+series_order:
+- United States
+- Sweden
+- Finland
+- United States + Health Insurance
+- Denmark
+- Norway
+line_style:
+  United States + Health Insurance: dashed
+x_label: Wage as a Percent of Average Wage
+y_label: Average tax wedge
+x_ticks:
+- 50
+- 100
+- 150
+- 200
+- 250
+y_ticks:
+- 20
+- 30
+- 40
+- 50
+- 60
+y_min: 20
+y_max: 60
+tick_suffix: '%'
+value_format: number
+theme: swiss
+eyebrow: "health premiums \xB7 2025"
+width: 2200
+height: 1400

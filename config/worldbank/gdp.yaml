@@ -1,0 +1,10 @@
+indicator: NY.GDP.MKTP.CD
+indicator_title: GDP (current US$)
+indicator_url: https://api.worldbank.org/v2/country/all/indicator/NY.GDP.MKTP.CD
+landing_page: https://data.worldbank.org/indicator/NY.GDP.MKTP.CD
+reference_year: 2023
+benchmark:
+  country: USA
+  expected_value: null
+  tolerance: 0.01
+terms: cc_by_4_0

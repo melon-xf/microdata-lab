@@ -1,0 +1,50 @@
+slug: cps_asec
+collection: cps
+landing_page: https://cps.ipums.org/cps-action/samples/sample_ids
+sample_page: https://cps.ipums.org/cps-action/samples/sample_ids
+sample_id_pattern: ^cps(?P<year>\d{4})_03s$
+minimum_year: 2000
+latest_lag: 0
+data_format: csv
+weight: ASECWT
+variables:
+  - YEAR
+  - SERIAL
+  - MONTH
+  - CPSID
+  - ASECFLAG
+  - ASECWTH
+  - STATEFIP
+  - REGION
+  - HHINCOME
+  - PERNUM
+  - CPSIDP
+  - ASECWT
+  - AGE
+  - SEX
+  - RACE
+  - HISPAN
+  - EDUC
+  - EMPSTAT
+  - LABFORCE
+  - OCC
+  - IND
+  - WKSWORK1
+  - UHRSWORKT
+  - INCTOT
+  - FTOTVAL
+  - INCWAGE
+  - POVERTY
+  - OFFPOVUNIV
+benchmark:
+  year: 2025
+  kind: weighted_count_below
+  variable: POVERTY
+  weight: ASECWT
+  threshold: 20
+  universe_variable: OFFPOVUNIV
+  universe_values:
+    - 1
+  expected: 35900000
+  relative_tolerance: 0.025
+  source: https://www.census.gov/newsroom/press-releases/2025/income-poverty-health-insurance-coverage.html

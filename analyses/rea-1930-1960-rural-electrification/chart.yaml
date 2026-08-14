@@ -1,0 +1,26 @@
+chart_type: line
+title: The last time America built the grid, it was public - and it worked
+subtitle: Percent of U.S. farms with central-station electric service, 1930-1963 (REA
+  chartered 1935)
+source: USDA Agricultural Statistics (1940, 1950, 1955, 1961, 1964 editions); 1930
+  point from Census of Agriculture
+note: REA = Rural Electrification Administration, chartered May 1935 (Rural Electrification
+  Act, 1936). Farms receiving central-station electric service (REA estimates), percent
+  of Census of Agriculture farm count. 9.1% in 1930, 30.4% by April 1940, 78.2% by
+  June 1949, 96.5% by June 1960. The census-based 1940 figure (33.2%, farm dwellings
+  with electricity) is slightly higher than the central-station series. Private utilities
+  had reached ~10% of farms in four decades; a public agency with ~2% loans finished
+  the job in two. Point estimates only; no sampling error is published for these aggregates.
+x: year
+y: percent
+x_label: Year
+y_label: Percent of farms with electricity
+value_format: number
+vline:
+- x: 1935
+  label: REA chartered
+  color: '#E30613'
+  linetype: dashed
+color: '#E30613'
+width: 1600
+height: 980

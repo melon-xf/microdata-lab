@@ -1,0 +1,294 @@
+version: 1
+sources:
+  scf:
+    name: Survey of Consumer Finances
+    agency: Federal Reserve Board
+    landing_page: https://www.federalreserve.gov/econres/scfindex.htm
+    access: public
+    adapter: scf
+    implemented: true
+    record_unit: primary_economic_unit
+    update_cadence: triennial
+    required_roles:
+      - full_data_stata
+      - replicate_weights_stata
+      - summary_extract_csv
+      - summary_extract_stata
+      - codebook
+      - standard_error_documentation
+      - changes
+      - variable_definitions
+  acs_pums:
+    name: American Community Survey Public Use Microdata Sample
+    agency: U.S. Census Bureau / IPUMS USA
+    landing_page: https://usa.ipums.org/usa-action/samples/sample_ids
+    access: licensed_api
+    credential: IPUMS_API_KEY
+    adapter: acs_pums
+    implemented: true
+    record_unit: person
+    update_cadence: annual
+  cps_asec:
+    name: Current Population Survey Annual Social and Economic Supplement
+    agency: U.S. Census Bureau / IPUMS CPS
+    landing_page: https://cps.ipums.org/cps-action/samples/sample_ids
+    access: licensed_api
+    credential: IPUMS_API_KEY
+    adapter: cps_asec
+    implemented: true
+    record_unit: person
+    update_cadence: annual
+  atus:
+    name: American Time Use Survey
+    agency: Bureau of Labor Statistics / IPUMS Time Use
+    landing_page: https://www.atusdata.org/atus-action/samples/sample_ids
+    access: licensed_api
+    credential: IPUMS_API_KEY
+    adapter: atus
+    implemented: true
+    record_unit: person_day
+    update_cadence: annual
+  sipp:
+    name: Survey of Income and Program Participation
+    agency: U.S. Census Bureau
+    landing_page: https://www.census.gov/programs-surveys/sipp/data/datasets/2025-data/2025.html
+    access: public
+    adapter: sipp
+    implemented: true
+    record_unit: person_month
+    update_cadence: annual
+    latest_lag: 1
+    required_roles:
+      - primary_data
+      - primary_schema
+      - primary_validation
+      - replicate_weights
+      - replicate_schema
+      - replicate_validation
+      - codebook
+      - release_notes
+      - input_example
+      - users_guide
+  ahs:
+    name: American Housing Survey
+    agency: U.S. Department of Housing and Urban Development / Census Bureau
+    landing_page: https://www.census.gov/programs-surveys/ahs/data/2023/ahs-2023-public-use-file--puf-/ahs-2023-national-public-use-file--puf-.html
+    access: public
+    adapter: ahs
+    implemented: true
+    record_unit: relational_housing_unit
+    update_cadence: biennial
+    latest_lag: 3
+    required_roles:
+      - national_csv
+      - version_control
+      - verification_workbook
+      - value_labels
+      - design_report
+      - variance_guide
+      - codebook_variables
+      - codebook_details
+      - codebook_years
+      - getting_started
+  ce:
+    name: Consumer Expenditure Surveys
+    agency: Bureau of Labor Statistics
+    landing_page: https://www.bls.gov/cex/pumd_data.htm
+    access: public
+    adapter: ce
+    implemented: true
+    record_unit: consumer_unit
+    update_cadence: annual
+    required_roles:
+      - interview_prior
+      - interview_current
+      - diary_current
+      - dictionary
+      - getting_started
+      - integration_workbook
+      - benchmark_workbook
+      - sample_r
+      - prior_errata
+  shed:
+    name: Survey of Household Economics and Decisionmaking
+    agency: Federal Reserve Board
+    landing_page: https://www.federalreserve.gov/consumerscommunities/shed_data.htm
+    access: public
+    adapter: shed
+    implemented: true
+    record_unit: adult_respondent
+    update_cadence: annual
+    required_roles:
+      - data_csv_zip
+      - data_stata_zip
+      - codebook
+      - report
+  gss:
+    name: General Social Survey
+    agency: NORC
+    landing_page: https://gss.norc.org/get-the-data/stata.html
+    access: terms_to_verify
+    adapter: gss
+    implemented: true
+    record_unit: adult_respondent
+    update_cadence: annual
+    required_roles:
+      - stata_zip
+      - codebook_pdf
+  oecd:
+    name: OECD Statistics (SDMX-JSON)
+    agency: Organisation for Economic Co-operation and Development
+    landing_page: https://stats.oecd.org/Index.aspx?DatasetCode=QNA
+    access: public
+    adapter: oecd
+    implemented: true
+    record_unit: macrodata_observation
+    update_cadence: continuous
+    required_roles:
+      - data_json
+  oecd_tax_wages:
+    name: OECD Tax Wages decomposition
+    agency: Organisation for Economic Co-operation and Development
+    landing_page: https://data-explorer.oecd.org/vis?df[ds]=dsDisseminateFinalDMZ&df[id]=DSD_TAX_WAGES_DECOMP@DF_TW_DECOMP&df[ag]=OECD.CTP.TPS&df[vs]=2.1
+    access: public
+    adapter: oecd_tax_wages
+    implemented: true
+    record_unit: country_year_wagelevel_observation
+    update_cadence: annual
+    required_roles:
+      - data_json
+  oecd_sha:
+    name: OECD Health expenditure and financing (SHA)
+    agency: Organisation for Economic Co-operation and Development
+    landing_page: https://data-explorer.oecd.org/vis?df[ds]=dsDisseminateFinalDMZ&df[id]=DSD_SHA@DF_SHA&df[ag]=OECD.ELS.HD&df[vs]=1.1
+    access: public
+    adapter: oecd_sha
+    implemented: true
+    record_unit: country_year_financingscheme_observation
+    update_cadence: annual
+    required_roles:
+      - data_json
+  worldbank:
+    name: World Bank Open Data API
+    agency: World Bank Group
+    landing_page: https://data.worldbank.org/indicator/NY.GDP.MKTP.CD
+    access: public
+    adapter: worldbank
+    implemented: true
+    record_unit: macrodata_observation
+    update_cadence: annual
+    required_roles:
+      - data_json
+  eurostat:
+    name: Eurostat Statistics (EU open data)
+    agency: European Commission / Eurostat
+    landing_page: https://ec.europa.eu/eurostat/databrowser/view/nama_10_gdp/default/table
+    access: public
+    adapter: eurostat
+    implemented: true
+    record_unit: macrodata_observation
+    update_cadence: annual
+    required_roles:
+      - data_json
+  who:
+    name: Global Health Observatory (WHO GHO)
+    agency: World Health Organization
+    landing_page: https://www.who.int/data/gho
+    access: public
+    adapter: who
+    implemented: true
+    record_unit: country_year_observation
+    update_cadence: annual
+    required_roles:
+      - data_json
+  ilo:
+    name: ILOSTAT Labour Statistics
+    agency: International Labour Organization
+    landing_page: https://ilostat.ilo.org/data/
+    access: public
+    adapter: ilo
+    implemented: true
+    record_unit: country_year_observation
+    update_cadence: annual
+    required_roles:
+      - data_json
+  bls_cpi:
+    name: Consumer Price Index (CPI-U)
+    agency: Bureau of Labor Statistics
+    landing_page: https://www.bls.gov/cpi/
+    access: public
+    adapter: bls_cpi
+    implemented: true
+    record_unit: monthly_index_observation
+    update_cadence: monthly
+    required_roles:
+      - data_json
+  fred:
+    name: FRED Economic Data
+    agency: Federal Reserve Bank of St. Louis
+    landing_page: https://fred.stlouisfed.org/
+    access: licensed_api
+    credential: FRED_API_KEY
+    adapter: fred
+    implemented: true
+    record_unit: quarterly_observation
+    update_cadence: quarterly
+    required_roles:
+      - data_json
+  eia_861:
+    name: EIA Form 861
+    agency: U.S. Energy Information Administration
+    landing_page: https://www.eia.gov/electricity/data/eia861/
+    access: public
+    adapter: eia_861
+    implemented: true
+    record_unit: utility_service_type
+    update_cadence: annual
+    required_roles:
+      - form_861_zip
+  energy_watch:
+    name: Hormuz Energy and Inflation Watch
+    agency: U.S. Energy Information Administration / Federal Reserve Bank of St. Louis
+    landing_page: https://fred.stlouisfed.org/
+    access: public
+    adapter: energy_watch
+    implemented: true
+    record_unit: market_observation
+    update_cadence: daily
+    required_roles:
+      - brent_csv
+      - gasoline_csv
+      - breakeven_csv
+      - hormuz_xlsx
+  census:
+    name: Census Bureau API (ACS 1-Year)
+    agency: U.S. Census Bureau
+    landing_page: https://www.census.gov/data/developers/data-sets/acs-1year.html
+    access: licensed_api
+    credential: CENSUS_API_KEY
+    adapter: census
+    implemented: true
+    record_unit: table_estimate
+    update_cadence: annual
+    required_roles:
+      - data_json
+  meps:
+    name: Medical Expenditure Panel Survey
+    agency: Agency for Healthcare Research and Quality
+    landing_page: https://meps.ahrq.gov/mepsweb/data_stats/download_data_files.jsp
+    access: public
+    adapter: meps
+    implemented: true
+    record_unit: person
+    update_cadence: annual
+    required_roles:
+      - data_dta
+      - docs_pdf
+      - codebook_pdf
+      - summary_txt
+  nlrb:
+    name: NLRB Case and Election Data
+    agency: National Labor Relations Board
+    landing_page: https://www.nlrb.gov/reports
+    access: public
+    implemented: false
