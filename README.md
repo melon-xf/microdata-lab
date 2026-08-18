@@ -298,5 +298,4 @@ Apache-2.0. Third-party notices live in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOT
 - [Union Now Fund](https://secure.actblue.com/donate/unionnow)
 - [American Economic Liberties Project](https://secure.actblue.com/donate/aelp?source=website)
 - [Open Markets Institute](https://secure.actblue.com/donate/open-markets-institute?refcode=website)
-- [FIRE](https://www.fire.org/donate?form=general)
 - [Transgender Law Center](https://transgenderlawcenter.org/donate/)
