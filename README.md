@@ -286,3 +286,14 @@ uv run pytest
 ```
 
 Apache-2.0. Third-party notices live in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+
+## Want to say thank you? Recommended donations:
+
+- [Defence for Children International](https://defenceforchildren.org/take-action-2/make-a-donation/)
+- [NCTE Action Fund](https://donate.ncteactionfund.org/a/a4te)
+- [Jacobin](https://jacobin.com/donate)
+- [People's Policy Project](https://secure.actblue.com/donate/3p?recurring=1)
+- [Democratic Socialists of America](https://act.dsausa.org/donate/donation)
+- [DSA Fund](https://dsausa.kindful.com/?campaign=1167490)
+- [Union Now Fund](https://secure.actblue.com/donate/unionnow)
+- [Transgender Law Center](https://transgenderlawcenter.org/donate/)
