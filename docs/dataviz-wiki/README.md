@@ -1,18 +1,17 @@
 # Data Visualization Doctrine Wiki
 
-Synthesized from four canonical books, each read cover-to-cover by an
-agent. The digest links in the table below point to `<repo>/docs/dataviz-wiki/sources/`,
-which holds the private, page-cited digests on the maintainer's machine
-(not committed — the books are copyrighted). The wiki pages themselves are
-self-contained: every claim carries its source key + page ref, and where
-authors conflict the conflict is stated with both refs.
+Synthesized from four canonical books. The digest links in the table below
+point to `<repo>/docs/dataviz-wiki/sources/`, which is not committed: the
+books are copyrighted, so full-text digests are not redistributed. The wiki
+pages themselves are self-contained: every claim carries its source key +
+page ref, and where authors conflict the conflict is stated with both refs.
 
-| Book | Author | Digest | Status |
+| Book | Author | Digest | Coverage |
 |---|---|---|---|
-| Better Data Visualizations (2021) | Schwabish | `sources/schwabish.md` (private) | agent-read, full text |
-| The Functional Art (2013) | Cairo | `sources/cairo.md` (private) | agent-read, full text |
-| Storytelling with Data (2015) | Knaflic | `sources/knaflic.md` (private) | agent-read, full text |
-| The Visual Display of Quantitative Information (1983/2001) | Tufte | `sources/tufte.md` (private) | ⚠ source MOBI was a figure-only rip; digest from canonical knowledge, page refs approximate |
+| Better Data Visualizations (2021) | Schwabish | Not included | Selected claims are cited with page references; verify against a licensed copy. |
+| The Functional Art (2013) | Cairo | Not included | Selected claims are cited with page references; verify against a licensed copy. |
+| Storytelling with Data (2015) | Knaflic | Not included | Selected claims are cited with document references; verify against a licensed copy. |
+| The Visual Display of Quantitative Information (1983/2001) | Tufte | Not included | Treat page references as provisional and verify against a licensed edition. |
 
 ## Pages
 

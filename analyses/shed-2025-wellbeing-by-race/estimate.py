@@ -105,7 +105,7 @@ def main() -> None:
     chart = {
         "chart_type": "bar",
         "orientation": "vertical",
-        "title": "White households report the highest financial well-being",
+        "title": "Asian and White households report the highest financial well-being",
         "subtitle": "Share 'at least okay financially' by race/ethnicity, 2025",
         "source": "Federal Reserve, Survey of Household Economics and Decisionmaking (SHED) 2025",
         "note": "Weighted with SHED analysis weight. 95% CI bounds are in the fallback data table.",

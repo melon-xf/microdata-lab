@@ -6,7 +6,7 @@ This project is inspired largely by [Matt Bruenig's microdata system](https://ww
 
 [![Hormuz exposure, oil, gasoline, and inflation expectations updating in sequence](demos/demo4-hormuz-watch/media/hormuz-watch.gif)](demos/demo4-hormuz-watch/)
 
-<p align="center"><strong>Oil and gasoline jumped. Five-year inflation expectations barely moved.</strong><br>One command refreshes the official series and rebuilds the finding when the data change.</p>
+<p align="center"><strong>Oil and gasoline are up more than 30 percent. Five-year inflation expectations are down 19 basis points.</strong><br>One command refreshes the official series and rebuilds the finding when the data change.</p>
 
 ## What it’s for
 

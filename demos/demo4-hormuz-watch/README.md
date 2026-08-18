@@ -1,4 +1,4 @@
-# Oil and gasoline jumped. Inflation expectations barely moved.
+# Oil and gasoline are up more than 30 percent. Five-year inflation expectations are down 19 basis points.
 
 ![Hormuz energy and inflation watch](media/hormuz-watch.png)
 

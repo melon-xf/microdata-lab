@@ -1,6 +1,6 @@
 chart_type: bar
 orientation: horizontal
-title: Global GDP varies 100x between richest and poorest major economies
+title: The 15 largest economies span a 17x range in GDP
 subtitle: GDP (current US$) for the 15 largest economies, 2023
 source: World Bank Open Data API (NY.GDP.MKTP.CD)
 note: Values in trillions USD. No sampling variance; official administrative data.

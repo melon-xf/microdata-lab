@@ -597,7 +597,7 @@ def draw_energy_scene(data: SceneData, progress: float, size: tuple[int, int]) -
     draw_header(
         c,
         "Demo 4 · live economic research",
-        "Oil and gasoline jumped. Inflation expectations barely moved.",
+        "Oil and gasoline are up 30%. Inflation expectations held.",
         (
             "Strait of Hormuz shock watch · latest official observations through "
             f"{latest_date:%b}. {latest_date.day}, {latest_date.year}"
