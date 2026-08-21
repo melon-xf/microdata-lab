@@ -11,11 +11,11 @@
   "dependencies": {
     "@observablehq/plot": "^0.6.17",
     "d3-dsv": "^3.0.1",
-    "esbuild": "^0.25.0"
+    "esbuild": "^0.28.2"
   },
   "devDependencies": {
     "@playwright/test": "^1.62.1",
     "@types/d3-dsv": "^3.0.7",
-    "typescript": "^5.8.0"
+    "typescript": "^7.0.2"
   }
 }
