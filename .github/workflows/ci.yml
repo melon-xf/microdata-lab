@@ -18,7 +18,7 @@ jobs:
         python-version: ["3.11", "3.14"]
     steps:
       - uses: actions/checkout@v7
-      - uses: astral-sh/setup-uv@v9.0.0
+      - uses: astral-sh/setup-uv@v10.0.1
         with:
           enable-cache: true
           python-version: ${{ matrix.python-version }}
@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: astral-sh/setup-uv@v9.0.0
+      - uses: astral-sh/setup-uv@v10.0.1
         with:
           enable-cache: true
           python-version: "3.11"
@@ -62,7 +62,7 @@ jobs:
           node-version: 22
           cache: npm
           cache-dependency-path: viz/interactive/package-lock.json
-      - uses: astral-sh/setup-uv@v9.0.0
+      - uses: astral-sh/setup-uv@v10.0.1
         with:
           enable-cache: true
           python-version: "3.11"
