@@ -192,6 +192,19 @@ header{max-width:1040px;margin-bottom:28px}h1{font-family:${headlineStack};font-
 }.meta{border-top:1px solid var(--rule);margin-top:24px;padding-top:14px;color:var(--muted);font-size:.84rem;line-height:1.45}.source,.note{margin:.2rem 0}
 details{margin-top:24px;color:var(--muted)}summary{cursor:pointer;font-weight:700}table{border-collapse:collapse;width:100%;margin-top:12px;color:var(--ink)}th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--rule)}
 @media(max-width:520px){main{padding:22px 16px}h1{letter-spacing:-.025em}.chart{overflow-x:auto}.chart svg,.plot-figure svg{max-width:none!important}}
+/* Mobile scroll affordance (runtime.ts injects .scroll-cue/.scroll-hint when
+   the 480px legibility floor overflows the viewport). The cue is a positioned
+   gradient overlay pinned to the right edge of the scroll container; the pill
+   sits below the chart. Animation is gated under no-preference; reduced-motion
+   users get the same elements but they vanish instantly on first scroll
+   (remove()), with no transform/opacity transition at all. */
+#chart{position:relative}
+.scroll-cue{position:absolute;top:0;right:0;height:100%;width:56px;pointer-events:none;background:linear-gradient(to left,var(--paper) 20%,rgba(255,255,255,0));-webkit-mask-image:linear-gradient(to right,transparent,#000);mask-image:linear-gradient(to right,transparent,#000)}
+.scroll-hint{margin-top:10px;text-align:center;font-size:.8rem;color:var(--muted);background:var(--paper);border:1px solid var(--rule);border-radius:999px;padding:6px 14px;width:max-content;margin-left:auto;margin-right:auto}
+@media(prefers-reduced-motion:no-preference){
+  .scroll-cue,.scroll-hint{animation:cue-fade-out .4s ease-out forwards}
+}
+@keyframes cue-fade-out{to{opacity:0}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
 </style>
 </head>

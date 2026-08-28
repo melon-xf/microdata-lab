@@ -8,6 +8,7 @@ from pathlib import Path
 from microdata_lab.adapters.ahs import AHSAdapter
 from microdata_lab.adapters.base import SourceAdapter
 from microdata_lab.adapters.bls_cpi import BlsAdapter
+from microdata_lab.adapters.bls_series import BlsSeriesAdapter
 from microdata_lab.adapters.ce import CEAdapter
 from microdata_lab.adapters.census import CensusAdapter
 from microdata_lab.adapters.eia_861 import EIA861Adapter
@@ -32,6 +33,7 @@ AdapterFactory = Callable[[], SourceAdapter]
 _ADAPTERS: dict[str, AdapterFactory] = {
     "ahs": AHSAdapter,
     "bls_cpi": BlsAdapter,
+    "bls_series": BlsSeriesAdapter,
     "scf": SCFAdapter,
     "census": CensusAdapter,
     "eia_861": EIA861Adapter,

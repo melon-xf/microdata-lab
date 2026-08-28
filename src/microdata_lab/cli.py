@@ -1,9 +1,14 @@
 from __future__ import annotations
 
 import json
+import os
+import re
+import subprocess
+from collections.abc import Callable
 from functools import partial
 from pathlib import Path
 
+import httpx
 import typer
 from rich.console import Console
 from rich.table import Table
@@ -12,10 +17,12 @@ from microdata_lab.adapters import enabled_source_slugs, get_adapter
 from microdata_lab.analysis_checks import check_all_analyses
 from microdata_lab.backfill import plan_backfill, reset_backfill_state, run_backfill
 from microdata_lab.bench import bench_to_json, run_bench
+from microdata_lab.bls import build_bls_client
 from microdata_lab.catalog import rebuild_catalog, search_catalog
 from microdata_lab.comparability import comparability_to_json, run_comparability
 from microdata_lab.config import initialize_data_root, load_source_registry, resolve_data_root
 from microdata_lab.integrity import scrub_data_lake
+from microdata_lab.secrets import read_runtime_value, require_secret
 from microdata_lab.storage import sync_release, validate_current_release
 from microdata_lab.visualization import render_interactive, render_static
 from microdata_lab.viz_gates import run_all_gates, store_golden_static
@@ -416,6 +423,326 @@ def viz_golden_store(
     """Store (or refresh) the golden baseline for one analysis figure."""
     result = store_golden_static(data, config)
     console.print(f"[green]{result.detail}[/green]")
+
+
+@viz_app.command("reel")
+def viz_reel(
+    scene: str = typer.Argument(..., help="Python module:function to render, e.g. responses.gac_m4a_economics.build_media:draw_national"),
+    output: Path = typer.Argument(..., help="Output .mp4 path."),
+    duration: float = typer.Option(10.0, "--duration", min=1.0, max=90.0, help="Reel length in seconds (Instagram caps at 90)."),
+    fps: int = typer.Option(30, "--fps", min=10, max=60),
+    blur_pad: str | None = typer.Option(None, "--blur-pad", help="Source 16:9 size as WxH to blur-pad onto 9:16, e.g. 1600x900."),
+    native: bool = typer.Option(False, "--native", help="Render directly at 9:16 (scene must be layout-aware)."),
+) -> None:
+    """Render an animated scene to an Instagram-ready 9:16 mp4 reel.
+
+    The scene is a callable(progress, size) -> PIL Image (or Canvas with
+    .image). By default the scene renders at its native size and is
+    blur-padded onto a 1080x1920 canvas; pass --native to render directly
+    at 9:16. Output is H.264 yuv420p +faststart with a silent AAC track.
+    """
+    import importlib
+    import importlib.util as _ilu
+
+    module_name, _, fn_name = scene.partition(":")
+    if not fn_name:
+        raise typer.BadParameter("scene must be 'module:function' or 'path/to/file.py:function'")
+    if module_name.endswith(".py"):
+        # file-path form: load the module from disk
+        spec = _ilu.spec_from_file_location("_reel_scene", module_name)
+        if spec is None or spec.loader is None:
+            raise typer.BadParameter(f"cannot load scene module from {module_name}")
+        module = _ilu.module_from_spec(spec)
+        spec.loader.exec_module(module)
+    else:
+        module = importlib.import_module(module_name)
+    scene_fn = getattr(module, fn_name)
+
+    from microdata_lab.reels import render_reel
+
+    blur = None
+    if blur_pad:
+        w, _, h = blur_pad.partition("x")
+        blur = (int(w), int(h))
+    if native and blur:
+        raise typer.BadParameter("--native and --blur-pad are mutually exclusive")
+    render_reel(
+        scene_fn, output,
+        duration_s=duration, fps=fps,
+        blur_pad=blur if not native else None,
+        size=(1080, 1920),
+    )
+    console.print(f"[bold green]Rendered reel:[/bold green] {output.resolve()}")
+
+
+# ---------------------------------------------------------------------------
+# doctor
+
+DOCTOR_ENV_KEYS = ("BLS_USER_AGENT", "FRED_API_KEY", "CENSUS_API_KEY", "IPUMS_API_KEY")
+_BLS_PROBE_URL = "https://download.bls.gov/pub/time.series/cu/cu.series"
+_BLS_UA_REMEDIATION = (
+    "download.bls.gov served an HTML block page; its firewall rejects generic "
+    "User-Agents. Configure an identifying BLS_USER_AGENT with "
+    "`uv run python scripts/configure_bls_contact.py`."
+)
+_FRED_PING_URL = "https://api.stlouisfed.org/fred/series"
+
+
+def _check_data_root(root: Path | None = None) -> tuple[str, bool, str]:
+    root = root or resolve_data_root()
+    if not root.exists():
+        return (
+            "MICRODATA_ROOT",
+            False,
+            f"{root} does not exist; run `uv run microdata sync <source>` to initialize it",
+        )
+    if not root.is_dir():
+        return ("MICRODATA_ROOT", False, f"{root} is not a directory")
+    if not os.access(root, os.W_OK):
+        return ("MICRODATA_ROOT", False, f"{root} is not writable by this user")
+    return ("MICRODATA_ROOT", True, str(root))
+
+
+def _check_env_keys(keys: tuple[str, ...] = DOCTOR_ENV_KEYS) -> tuple[str, bool, str]:
+    present = [key for key in keys if read_runtime_value(key)]
+    missing = [key for key in keys if key not in present]
+    if missing:
+        return (
+            ".env keys",
+            False,
+            f"missing: {', '.join(missing)} (values never printed;"
+            " run the scripts/configure_* helpers)",
+        )
+    return (".env keys", True, f"present: {', '.join(present)}")
+
+
+def _check_rscript(repo_root: Path | None = None) -> tuple[str, bool, str]:
+    base = repo_root or Path(__file__).resolve().parents[2]
+    rscript = base / ".r-env" / "bin" / "Rscript"
+    if not rscript.is_file():
+        return ("Rscript", False, f"{rscript} not found; rebuild the locked R environment")
+    try:
+        result = subprocess.run(
+            [str(rscript), "--version"], capture_output=True, text=True, timeout=30
+        )
+    except (OSError, subprocess.TimeoutExpired) as error:
+        return ("Rscript", False, f"{rscript} failed to run: {error}")
+    if result.returncode != 0:
+        return ("Rscript", False, f"{rscript} --version exited {result.returncode}")
+    version = (result.stdout or result.stderr).splitlines()[0].strip()
+    return ("Rscript", True, version)
+
+
+def _is_chromium_build(name: str) -> bool:
+    return name.startswith("chromium-") or name.startswith("chromium_headless_shell-")
+
+
+def _check_playwright(home: Path | None = None) -> tuple[str, bool, str]:
+    cache = (home or Path.home()) / ".cache" / "ms-playwright"
+    if not cache.is_dir():
+        return (
+            "playwright chromium",
+            False,
+            f"{cache} not found; run `uv run playwright install chromium`",
+        )
+    builds = sorted(
+        candidate
+        for candidate in cache.iterdir()
+        if candidate.is_dir() and _is_chromium_build(candidate.name)
+    )
+    if not builds:
+        return (
+            "playwright chromium",
+            False,
+            f"{cache} has no chromium build; run `uv run playwright install chromium`",
+        )
+    names = ", ".join(build.name for build in builds[:3])
+    return ("playwright chromium", True, f"{len(builds)} build(s) under {cache}: {names}")
+
+
+def _check_bls_reachable(
+    client_factory: Callable[[], httpx.Client] = build_bls_client,
+) -> tuple[str, bool, str]:
+    try:
+        client = client_factory()
+    except Exception as error:
+        return ("download.bls.gov", False, f"cannot build the identified BLS client: {error}")
+    try:
+        response = client.get(_BLS_PROBE_URL)
+    except httpx.HTTPError as error:
+        return ("download.bls.gov", False, f"request failed: {error}")
+    finally:
+        client.close()
+    head = response.content[:1024].lstrip().lower()
+    if head.startswith(b"<!doctype html") or head.startswith(b"<html"):
+        return ("download.bls.gov", False, _BLS_UA_REMEDIATION)
+    if response.status_code != 200:
+        return ("download.bls.gov", False, f"HTTP {response.status_code} for {_BLS_PROBE_URL}")
+    return ("download.bls.gov", True, "cu.series served as text with the identifying User-Agent")
+
+
+def _check_fred_ping(
+    api_key: str | None = None,
+    client: httpx.Client | None = None,
+) -> tuple[str, bool, str]:
+    try:
+        key = api_key or require_secret("FRED_API_KEY")
+    except RuntimeError as error:
+        return ("FRED API", False, str(error))
+    owns = client is None
+    active = client or httpx.Client(timeout=30, headers={"User-Agent": "microdata-lab/1.0"})
+    try:
+        # The key travels in the query string; never echo the URL or payload.
+        response = active.get(
+            _FRED_PING_URL,
+            params={"series_id": "GNPCA", "api_key": key, "file_type": "json"},
+        )
+        payload = response.json()
+    except (httpx.HTTPError, ValueError) as error:
+        return ("FRED API", False, f"ping failed: {type(error).__name__}")
+    finally:
+        if owns:
+            active.close()
+    if response.status_code != 200 or "error_code" in payload:
+        return (
+            "FRED API",
+            False,
+            f"HTTP {response.status_code}: {payload.get('error_message', 'no series payload')}",
+        )
+    return ("FRED API", True, f"series ping OK ({payload.get('seriess', [{}])[0].get('id', '?')})")
+
+
+@app.command()
+def doctor() -> None:
+    """Check local prerequisites: data root, secrets, R, playwright, BLS, FRED."""
+    checks = [
+        _check_data_root(),
+        _check_env_keys(),
+        _check_rscript(),
+        _check_playwright(),
+        _check_bls_reachable(),
+        _check_fred_ping(),
+    ]
+    table = Table("Check", "Status", "Detail")
+    failed = 0
+    for name, passed, detail in checks:
+        if not passed:
+            failed += 1
+        table.add_row(name, "[green]PASS[/green]" if passed else "[red]FAIL[/red]", detail)
+    console.print(table)
+    if failed:
+        console.print(f"[bold red]{failed} doctor check(s) failed.[/bold red]")
+        raise typer.Exit(1)
+    console.print("[bold green]All doctor checks passed.[/bold green]")
+
+
+# ---------------------------------------------------------------------------
+# new
+
+_SLUG_RE = re.compile(r"[a-z0-9_][a-z0-9_-]*")
+
+_QUESTION_TEMPLATE = """# {slug}
+
+## Question
+
+<!-- One sentence: the factual claim this analysis supports. -->
+
+## Contract (from AGENTS.md)
+
+- Estimand:
+- Universe:
+- Variables (cite the codebook or curated variable catalog entry; never infer
+  meaning from a variable name):
+- Design (record unit, weights, strata/PSUs, replicate weights, implicates):
+- Assumptions and exclusions:
+- Release IDs (from `uv run microdata status`):
+- Benchmark reproduced (official published figure and local estimate):
+"""
+
+_ESTIMATE_TEMPLATE = '''"""Estimate for analyses/{slug}. Generated by `microdata new`.
+
+Replace every TODO before shipping.
+"""
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+import pandas as pd
+
+from microdata_lab.config import resolve_data_root
+
+ANALYSIS_DIR = Path(__file__).resolve().parent
+
+
+def main() -> None:
+    root = resolve_data_root()
+    # TODO: load the validated release for your source (see `microdata status`
+    # and the DuckDB catalog under root / "catalog"), apply the documented
+    # weight and complex-survey design, and compute the estimand from
+    # question.md.
+    data = pd.DataFrame({{"date": [], "value": []}})
+    data.to_csv(ANALYSIS_DIR / "data.csv", index=False)
+    diagnostics = {{
+        "row_counts": {{}},
+        "weighted_population": {{}},
+        "missingness": {{}},
+        "design": {{}},
+        "uncertainty": {{}},
+        "benchmark": {{}},
+    }}
+    (ANALYSIS_DIR / "diagnostics.json").write_text(json.dumps(diagnostics, indent=2))
+    raise NotImplementedError(f"Scaffold only — data root is {{root}}; write the real estimate.")
+
+
+if __name__ == "__main__":
+    main()
+'''
+
+_CHART_TEMPLATE = """# Generated by `microdata new`; titles must make a factual claim (AGENTS.md).
+chart_type: line
+title: TODO — one factual claim, not a topic label
+subtitle: TODO — population, measure, and period
+source: TODO — official agency, survey, and release ID
+x: date
+y: value
+x_label: TODO
+y_label: TODO
+value_format: number
+"""
+
+_README_TEMPLATE = """# {slug}
+
+_Generated by `microdata new {slug}` — replace every TODO before shipping._
+
+## Methods
+
+## Results
+
+## Limitations
+
+## Sources
+"""
+
+
+@app.command()
+def new(slug: str = typer.Argument(..., help="Analysis slug, e.g. bls-2026-fafh-west-msa")) -> None:
+    """Scaffold analyses/<slug>/ with the AGENTS.md contract files."""
+    if not _SLUG_RE.fullmatch(slug):
+        raise typer.BadParameter(f"Invalid slug {slug!r}: use lowercase letters, digits, - and _")
+    target = Path("analyses") / slug
+    if target.exists():
+        console.print(f"[bold red]Refusing to clobber existing directory:[/bold red] {target}")
+        raise typer.Exit(1)
+    target.mkdir(parents=True)
+    (target / "question.md").write_text(_QUESTION_TEMPLATE.format(slug=slug))
+    (target / "estimate.py").write_text(_ESTIMATE_TEMPLATE.format(slug=slug))
+    (target / "chart.yaml").write_text(_CHART_TEMPLATE)
+    (target / "README.md").write_text(_README_TEMPLATE.format(slug=slug))
+    console.print(f"[bold green]Scaffolded analysis:[/bold green] {target}")
+    for path in sorted(target.iterdir()):
+        console.print(f"  {path.name}")
 
 
 if __name__ == "__main__":  # pragma: no cover

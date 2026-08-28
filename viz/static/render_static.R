@@ -80,14 +80,26 @@ theme_editorial <- function() {
     theme(
       plot.background = element_rect(fill = editorial_palette[["paper"]], color = NA),
       panel.background = element_rect(fill = editorial_palette[["paper"]], color = NA),
-      plot.title = element_text(
+      # plot.title.position/plot.caption.position = "plot" anchor the
+      # title/subtitle/caption to the whole canvas, not the panel: with the
+      # default "panel", wide y-axis category labels (horizontal bars) push
+      # the panel right and shove the title/caption off-canvas (observed in
+      # production: title starting at x=923 of a 1600px canvas).
+      plot.title.position = "plot",
+      plot.caption.position = "plot",
+      # Textbox elements wrap at the actual plot-region width, so a
+      # pre-wrapped line that still exceeds the canvas re-wraps instead of
+      # clipping mid-word at the right edge (observed on shipped subtitles).
+      plot.title = element_textbox_simple(
         family = "Jost Black", face = "plain", size = 23,
-        color = editorial_palette[["ink"]], margin = margin(b = 2)
+        color = editorial_palette[["ink"]], lineheight = 1.05,
+        margin = margin(b = 2)
       ),
-      plot.subtitle = element_text(
-        size = 15.5, color = editorial_palette[["muted"]], margin = margin(b = 8)
+      plot.subtitle = element_textbox_simple(
+        size = 15.5, color = editorial_palette[["muted"]], lineheight = 1.15,
+        margin = margin(b = 8)
       ),
-      plot.caption = element_text(
+      plot.caption = element_textbox_simple(
         size = 13, color = editorial_palette[["caption"]], hjust = 0,
         lineheight = 1.15, margin = margin(t = 14)
       ),
@@ -130,14 +142,20 @@ theme_policy_bauhaus <- function() {
     theme(
       plot.background = element_rect(fill = bauhaus_palette[["paper"]], color = NA),
       panel.background = element_rect(fill = bauhaus_palette[["paper"]], color = NA),
-      plot.title = element_text(
+      # Anchor title/caption to the canvas, not the panel (see editorial
+      # theme comment), and wrap header/footer text at the plot width.
+      plot.title.position = "plot",
+      plot.caption.position = "plot",
+      plot.title = element_textbox_simple(
         family = "Jost Black", face = "plain", size = 26,
-        color = bauhaus_palette[["black"]], margin = margin(b = 4)
+        color = bauhaus_palette[["black"]], lineheight = 1.05,
+        margin = margin(b = 4)
       ),
-      plot.subtitle = element_text(
-        size = 15.5, color = bauhaus_palette[["grey"]], margin = margin(b = 10)
+      plot.subtitle = element_textbox_simple(
+        size = 15.5, color = bauhaus_palette[["grey"]], lineheight = 1.15,
+        margin = margin(b = 10)
       ),
-      plot.caption = element_text(
+      plot.caption = element_textbox_simple(
         size = 12.5, color = bauhaus_palette[["grey"]], hjust = 0,
         lineheight = 1.2, margin = margin(t = 14)
       ),
@@ -186,15 +204,21 @@ theme_policy_swiss <- function() {
     theme(
       plot.background = element_rect(fill = swiss_palette[["paper"]], color = NA),
       panel.background = element_rect(fill = swiss_palette[["paper"]], color = NA),
+      # Anchor title/caption to the canvas, not the panel (see editorial
+      # theme comment). Title keeps element_markdown for the eyebrow span;
+      # subtitle/caption use textbox wrapping so over-long lines re-wrap
+      # instead of clipping mid-word at the right edge.
+      plot.title.position = "plot",
+      plot.caption.position = "plot",
       plot.title = element_markdown(
         family = "Liberation Sans", face = "bold", size = 27,
         color = swiss_palette[["black"]], hjust = 0, margin = margin(b = 6)
       ),
-      plot.subtitle = element_text(
+      plot.subtitle = element_textbox_simple(
         size = 15.5, color = swiss_palette[["grey"]], hjust = 0,
-        margin = margin(b = 12)
+        lineheight = 1.15, margin = margin(b = 12)
       ),
-      plot.caption = element_text(
+      plot.caption = element_textbox_simple(
         size = 12.5, color = swiss_palette[["grey"]], hjust = 0,
         lineheight = 1.2, margin = margin(t = 14)
       ),
@@ -356,16 +380,21 @@ theme_policy <- function() {
     theme(
       plot.background = element_rect(fill = palette[["paper"]], color = NA),
       panel.background = element_rect(fill = palette[["paper"]], color = NA),
+      # Anchor title/caption to the canvas, not the panel (see editorial
+      # theme comment); title already used a textbox — subtitle and caption
+      # now match so all header/footer text wraps at the plot width.
+      plot.title.position = "plot",
+      plot.caption.position = "plot",
       plot.title = element_textbox_simple(
         family = "Roboto Condensed", face = "bold", size = 34,
         color = palette[["ink"]], lineheight = 1.03,
         margin = margin(b = 8)
       ),
-      plot.subtitle = element_text(
+      plot.subtitle = element_textbox_simple(
         size = 19, color = palette[["muted"]], lineheight = 1.15,
         margin = margin(b = 22)
       ),
-      plot.caption = element_text(
+      plot.caption = element_textbox_simple(
         size = 12.5, color = palette[["muted"]], hjust = 0,
         lineheight = 1.15, margin = margin(t = 22)
       ),
@@ -389,6 +418,22 @@ theme_policy <- function() {
 caption <- str_wrap(paste0("Source: ", config$source), width = 95)
 if (!is.null(config$note) && nzchar(config$note)) {
   caption <- paste(caption, str_wrap(config$note, width = 95), sep = "\n")
+}
+
+# Plain-text guard for ggtext-rendered elements. plot.title/subtitle/
+# caption now go through element_textbox_simple / element_markdown, so
+# their strings are parsed as markdown by commonmark before gridtext
+# draws them. Prose that happens to wrap onto a line starting with
+# "+ ...", "- ...", "* ..." or "16.50 ..." becomes a bullet/ordered LIST
+# tag, which gridtext cannot render (production crash: EIA-861 note with
+# "(bundled + energy + delivery)": "gridtext has encountered a tag that
+# isn't supported yet: <ul>"). These fields carry prose, never markup —
+# the swiss eyebrow title is the one deliberate exception — so escape
+# markdown-significant punctuation. Rendered output is unchanged for
+# ordinary text: backslash escapes dissolve during markdown parsing,
+# and no list/link/emphasis construct can form anymore.
+escape_md <- function(x) {
+  gsub("([\\\\`*_{}\\[\\]()#+.!|>~-])", "\\\\\\1", x, perl = TRUE)
 }
 
 # Editorial theme renders lines noticeably thicker than the default theme.
@@ -452,7 +497,14 @@ if (chart_type == "bar" && orientation == "horizontal") {
       show.legend = !is.null(config$series)
     ) +
     scale_fill_manual(values = bar_fills) +
-    scale_x_continuous(labels = format_value, expand = expansion(mult = c(0, 0.14))) +
+    scale_x_continuous(labels = format_value,
+      breaks = if (!is.null(config$y_ticks)) unlist(config$y_ticks) else waiver(),
+      limits = if (!is.null(config$y_min) || !is.null(config$y_max)) {
+        c(config$y_min, config$y_max)
+      } else {
+        NULL
+      },
+      expand = expansion(mult = c(0, 0.14))) +
     {if (is.null(config$show_value_labels) || config$show_value_labels) {
       geom_text(
         aes(x = .data[[config$y]], label = .data[[".label"]]),
@@ -504,11 +556,49 @@ if (chart_type == "bar" && orientation == "horizontal") {
       character(1)
     )
   }
+  # X-label collision guard (production bug: four ~28-char category labels
+  # on vertical bars rendered with no wrap/rotation and overlapped).
+  # Heuristic: estimate the pixel width of one category slot from the
+  # configured canvas width (panel = canvas minus ~82px plot margins and a
+  # ~90px y-axis gutter) and an average glyph width of ~13px (axis.text is
+  # 16pt; ragg renders at res 144, so 1pt = 2px and a 32px em averages
+  # ~0.4em per character). If the longest single LINE of any label exceeds
+  # its slot, wrap labels to floor(slot_px / 13) characters with str_wrap
+  # (existing manual newlines are wrapped line-by-line and preserved). If
+  # wrapping cannot fit (an unbreakable word longer than the slot), fall
+  # back to 30-degree rotation with hjust = 1. Labels that already fit are
+  # left untouched so short-label charts render byte-identical.
+  x_cats <- levels(data[[config$x]])
+  x_lines <- unlist(strsplit(x_cats, "\n", fixed = TRUE))
+  x_words <- unlist(strsplit(x_lines, "[[:space:]]+"))
+  fig_w <- if (!is.null(config$width)) config$width else 1400
+  panel_px <- fig_w - 172
+  slot_px <- panel_px / max(1, length(x_cats))
+  char_px <- 13
+  longest_line <- max(nchar(x_lines))
+  longest_word <- if (length(x_words) > 0) max(nchar(x_words)) else 0
+  wrap_at <- max(8, floor(slot_px / char_px))
+  x_label_scale <- NULL
+  x_label_theme <- NULL
+  if (longest_word * char_px > slot_px) {
+    x_label_theme <- theme(axis.text.x = element_text(angle = 30, hjust = 1))
+  } else if (longest_line * char_px > slot_px) {
+    x_label_scale <- scale_x_discrete(
+      labels = function(x) {
+        vapply(
+          strsplit(x, "\n", fixed = TRUE),
+          function(lns) paste(str_wrap(lns, width = wrap_at), collapse = "\n"),
+          character(1)
+        )
+      }
+    )
+  }
   plot <- ggplot(data, aes(x = .data[[config$x]], y = .data[[config$y]], fill = .data[[fill_col]])) +
     geom_col(position = if (!is.null(config$series)) "dodge" else "identity",
              width = 0.68,
              show.legend = !is.null(config$series)) +
     scale_fill_manual(values = bar_fills) +
+    x_label_scale +
     {if (is.null(config$show_value_labels) || config$show_value_labels) {
       geom_text(
         aes(
@@ -534,7 +624,8 @@ if (chart_type == "bar" && orientation == "horizontal") {
         color = if (use_editorial) editorial_palette[["ink"]] else if (use_bauhaus) bauhaus_palette[["black"]] else if (use_swiss) swiss_palette[["black"]] else palette[["ink"]],
         margin = margin(r = 14)
       )
-    )
+    ) +
+    x_label_theme
 } else if (chart_type == "line" && !is.null(config$series)) {
   if (!is.null(config$series_order)) {
     data[[config$series]] <- factor(
@@ -1028,19 +1119,21 @@ if (!is.null(config$vline) && length(config$vline) > 0) {
   plot <- plot + coord_cartesian(clip = "off")
 }
 
+swiss_title <- use_swiss && !is.null(config$eyebrow)
+title_out <- if (swiss_title) {
+  paste0(
+    "<span style='color:", swiss_palette[["red"]], ";font-size:13px;font-weight:700;letter-spacing:2.5px;'>", toupper(config$eyebrow), "</span><br>",
+    # ggtext markdown collapses plain newlines to spaces, so a str_wrap'd
+    # title renders as one long overflowing line; use explicit <br>.
+    gsub("\n", "<br>", str_wrap(config$title, width = 54))
+  )
+} else {
+  escape_md(str_wrap(config$title, width = 54))
+}
 plot <- plot + labs(
-  title = if (use_swiss && !is.null(config$eyebrow)) {
-    paste0(
-      "<span style='color:", swiss_palette[["red"]], ";font-size:13px;font-weight:700;letter-spacing:2.5px;'>", toupper(config$eyebrow), "</span><br>",
-      # ggtext markdown collapses plain newlines to spaces, so a str_wrap'd
-      # title renders as one long overflowing line; use explicit <br>.
-      gsub("\n", "<br>", str_wrap(config$title, width = 54))
-    )
-  } else {
-    str_wrap(config$title, width = 54)
-  },
-  subtitle = str_wrap(config$subtitle, width = 80),
-  caption = caption,
+  title = title_out,
+  subtitle = escape_md(str_wrap(config$subtitle, width = 80)),
+  caption = escape_md(caption),
   x = if (!is.null(config$x_label)) config$x_label else NULL,
   y = if (!is.null(config$y_label)) config$y_label else NULL,
   tag = NULL

@@ -1,0 +1,8 @@
+{
+  "name": "microdata-lab",
+  "label": "Microdata Lab",
+  "description": "Repo health pane, statusbar chip, and run commands for the microdata-lab charting pipeline",
+  "icon": "Graph",
+  "version": "0.1.0",
+  "api": "plugin_api.py"
+}

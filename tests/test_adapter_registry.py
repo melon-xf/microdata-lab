@@ -20,6 +20,7 @@ def test_enabled_sources_exclude_planned_adapters() -> None:
         "ahs",
         "atus",
         "bls_cpi",
+        "bls_series",
         "ce",
         "census",
         "cps_asec",

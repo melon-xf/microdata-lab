@@ -121,6 +121,47 @@ function tickValues(ticks?: number[]): number[] | undefined {
   return ticks;
 }
 
+// ── Categorical x-axis crowding guard ─────────────────────────────────
+// What Plot already does: nothing — a band axis renders EVERY tick label
+// centered on its band and never rotates, wraps, or thins them, so crowded
+// categorical labels overlap silently (Plot exposes the tickRotate option
+// but leaves the decision to the caller). The R renderer's protection for
+// the same case is a 30° rotation (render_static.R step branch:
+// axis.text.x = element_text(angle = 30, hjust = 1)). Mirror that here,
+// gated on MEASURED crowding: canvas-measure the labels (at the axis font
+// size/style Plot actually renders — common.style sets fontSize/baseFontSize)
+// and rotate only when the label pitch cannot fit the longest label side by
+// side. NOTE: a -30° rotation shrinks each label's HORIZONTAL footprint to
+// |width·cos30°| ≈ 0.87w but its bounding box still overlaps neighbors; the
+// guard therefore triggers on the horizontal extent that actually collides.
+let measureCtx: CanvasRenderingContext2D | null = null;
+function measureTextWidth(text: string): number {
+  if (!measureCtx) {
+    measureCtx = document.createElement("canvas").getContext("2d");
+    if (measureCtx) {
+      // Match Plot's rendered tick style: common.style sets the SVG font to
+      // theme.fontStack at theme.baseFontSize px.
+      measureCtx.font = `${theme.baseFontSize}px ${theme.fontStack}`;
+    }
+  }
+  // Fallback estimate when canvas is unavailable (SSR/tests).
+  return measureCtx ? measureCtx.measureText(text).width : text.length * theme.baseFontSize * 0.55;
+}
+function crowdedXLabels(width: number, labels: string[], mLeft: number, mRight: number): boolean {
+  if (labels.length < 2) return false;
+  const available = width - mLeft - mRight;
+  if (available <= 40) return false;
+  // Horizontal footprint of a -30°-rotated label is width*cos(30°) ≈ 0.87w;
+  // labels collide when consecutive footprints would touch end-to-end with
+  // no breathing room. Use the LONGEST label (worst case) as the criterion —
+  // mirroring ggplot behavior where rotation happens for all ticks or none.
+  let longest = 0;
+  for (const label of labels) longest = Math.max(longest, measureTextWidth(label));
+  const rotatedFootprint = longest * Math.cos(Math.PI / 6);
+  const pitch = available / labels.length;
+  return rotatedFootprint > pitch * 0.98;
+}
+
 function chartForWidth(width: number): Node {
   const responsiveHorizontal = config.chart_type === "bar" && width < 560;
   const horizontal = config.orientation === "horizontal" || responsiveHorizontal;
@@ -390,6 +431,9 @@ function chartForWidth(width: number): Node {
       bands.indexOf(band) + edge / 2 + groupPos(group) * (slot + gap);
     return Plot.plot({
       ...common,
+      // Crowding guard: Plot band axes never rotate labels; the R renderer
+      // rotates crowded categorical ticks 30° (render_static.R). Mirror that,
+      // gated on measured width so sparse charts keep flat centered labels.
       x: config.series
         ? {
             type: "linear",
@@ -399,7 +443,14 @@ function chartForWidth(width: number): Node {
             label: common.x.label,
             grid: false,
           }
-        : { ...common.x, type: "band", domain: data.map((row) => String(row[config.x])) },
+        : {
+            ...common.x,
+            type: "band",
+            domain: data.map((row) => String(row[config.x])),
+            ...(crowdedXLabels(width, [...new Set(data.map((row) => String(row[config.x])))], common.marginLeft, common.marginRight)
+              ? { tickRotate: -30 }
+              : {}),
+          },
       y: {
         ...common.y,
         tickFormat: (value: number) => formatter.format(value),
@@ -600,7 +651,14 @@ function chartForWidth(width: number): Node {
     const isAbove = (band: string) => sideByBand.get(band) === "above";
     return Plot.plot({
       ...common,
-      x: { ...common.x, type: "band", domain: bands },
+      x: {
+        ...common.x,
+        type: "band",
+        domain: bands,
+        // Crowding guard: mirror the R renderer's 30° rotation for crowded
+        // categorical ticks (gated on measured width, not applied blindly).
+        ...(crowdedXLabels(width, bands, common.marginLeft, common.marginRight) ? { tickRotate: -30 } : {}),
+      },
       y: { ...common.y, tickFormat: (value: number) => formatter.format(value) },
       color: {
         type: "ordinal",
@@ -673,6 +731,9 @@ function chartForWidth(width: number): Node {
         tickFormat: (v: number) => bands[v] ?? "",
         type: "linear",
         label: null,
+        // Crowding guard: mirror the R step chart's 30° rotation for crowded
+        // band labels (gated on measured width; the R branch sets angle=30).
+        ...(crowdedXLabels(width, bands, common.marginLeft, common.marginRight) ? { tickRotate: -30 } : {}),
       },
       y: {
         ...common.y,
@@ -1286,25 +1347,275 @@ if (tableBody) {
     const tr = document.createElement("tr");
     for (const key of columns) {
       const td = document.createElement("td");
-      td.textContent = key === config.y || key === config.ci_low || key === config.ci_high
-        ? formatter.format(Number(row[key]))
-        : String(row[key]);
+      // Fallback-table fidelity: the table is the reader's source of truth
+      // for the underlying numbers, so value cells must carry the FULL
+      // precision present in data.csv — not the chart's axis rounding
+      // (formatter.format applies maximumFractionDigits: 1, which renders
+      // gdp_trillions 1.619 as "1.6"). Grouped digits keep large raw values
+      // legible without changing any digits. Category/series cells stay
+      // verbatim from the CSV.
+      td.textContent =
+        key === config.y || key === config.ci_low || key === config.ci_high
+          ? new Intl.NumberFormat("en-US", { maximumFractionDigits: 20 }).format(Number(row[key]))
+          : String(row[key]);
       tr.append(td);
     }
     tableBody.append(tr);
   }
 }
 
-new ResizeObserver(render).observe(chartRoot);
+// The ResizeObserver that re-renders on container resize is registered at the
+// bottom of this file (renderAndRearm) so every redraw re-arms the interaction
+// layer; do not register another observer here.
+
+// ── Interaction runtime: affordance, keyboard access, tooltip mirroring ─
+// One enhancement layer attached to #chart after each (re)render:
+//   1. Mobile scroll affordance — right-edge gradient cue + "drag to explore"
+//      pill when the SVG overflows its scroll container (the 480px legibility
+//      floor can exceed narrow viewports). Dismissed permanently on the first
+//      real scroll/touch; prefers-reduced-motion hides instantly (CSS also
+//      kills all animation/transition under reduce).
+//   2. Keyboard access — roving tabindex over Plot's mark groups (the g[aria-label]
+//      groups Plot emits per mark; axis/frame groups carry structural labels and
+//      are skipped), Enter/Space re-pins that mark's tip content into an aria-live
+//      region ("tooltip text mirrored politely").
+//   3. Tooltip performance — pointermove coalesced through requestAnimationFrame.
+// Plot already renders tips natively (tip: true) with sticky-click support and
+// even rAF-batches FACETED re-renders internally (pointer.js facetState); this
+// layer adds what it does NOT provide: focusability, non-pointer activation,
+// and screen-reader announcement.
+const REDUCED_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+const liveRegion = document.createElement("div");
+liveRegion.className = "chart-live-region";
+liveRegion.setAttribute("role", "status");
+liveRegion.setAttribute("aria-live", "polite");
+liveRegion.setAttribute("aria-atomic", "true");
+// Visually hidden but visible to screen readers (classic clip pattern; safe
+// under prefers-reduced-motion since it never animates).
+liveRegion.style.cssText =
+  "position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;" +
+  "clip:rect(0 0 0 0);clip-path:inset(50%);overflow:hidden;white-space:nowrap";
+
+function applyRovingTabindex(markGroups: Element[]): void {
+  const n = markGroups.length;
+  for (let i = 0; i < n; i++) {
+    const group = markGroups[i] as HTMLElement & { setAttribute: (k: string, v: string) => void };
+    group.setAttribute("tabindex", i === 0 ? "0" : "-1");
+    if (!group.getAttribute("role")) group.setAttribute("role", "button");
+    // Screen-reader label from data semantics, not Plot internals.
+    const row = data[i];
+    if (row) {
+      const parts = [config.x, config.y]
+        .filter((k): k is string => Boolean(k))
+        .map((k) => `${k}: ${row[k]}`);
+      const seriesVal = config.series ? String(row[config.series]) : undefined;
+      group.setAttribute(
+        "aria-label",
+        parts.join(", ") + (seriesVal ? `, ${config.series}: ${seriesVal}` : ""),
+      );
+    }
+  }
+}
+
+function moveTabindex(from: Element, to: Element): void {
+  from.setAttribute("tabindex", "-1");
+  to.setAttribute("tabindex", "0");
+  (to as HTMLElement).focus({ preventScroll: true });
+}
+
+// Point-to-index lookup shared by pointer and keyboard paths.
+function nearestIndex(plot: SVGSVGElement, x: number, y: number): number {
+  let best = -1;
+  let bestD = Infinity;
+  markBoxes(plot).forEach((box, i) => {
+    const dx = Math.max(box.left - x, 0, x - box.right);
+    const dy = Math.max(box.top - y, 0, y - box.bottom);
+    const d = dx * dx + dy * dy;
+    if (d < bestD) { bestD = d; best = i; }
+  });
+  return bestD < 60 * 60 ? best : -1;
+}
+
+type Box = { left: number; top: number; right: number; bottom: number };
+
+function markBoxes(plot: SVGSVGElement): Box[] {
+  return markGroupSelector === null
+    ? []
+    : Array.from(plot.querySelectorAll<SVGGElement>(markGroupSelector)).map((g) => {
+        const r = g.getBoundingClientRect();
+        return { left: r.left, top: r.top, right: r.right, bottom: r.bottom };
+      });
+}
+
+let markGroupSelector: string | null = null;
+
+interface ScrollAffordance {
+  cue: HTMLDivElement;
+  pill: HTMLDivElement;
+}
+
+const affordances = new WeakMap<HTMLElement, ScrollAffordance>();
+let affordanceDismissed = false; // permanent across re-renders
+
+function buildScrollAffordance(wrapper: HTMLElement): void {
+  wrapper.style.position = wrapper.style.position || "relative";
+  const cue = document.createElement("div");
+  cue.className = "scroll-cue";
+  const pill = document.createElement("div");
+  pill.className = "scroll-hint";
+  pill.textContent = "drag to explore";
+  const fade = () => {
+    affordanceDismissed = true;
+    cue.remove();
+    pill.remove();
+  };
+  if (!affordanceDismissed) {
+    wrapper.addEventListener("scroll", fade, { once: true, capture: true });
+    wrapper.addEventListener("touchstart", fade, { once: true, capture: true });
+    wrapper.addEventListener("wheel", fade, { once: true, capture: true });
+  }
+  affordances.set(wrapper, { cue, pill });
+}
+
+function updateScrollAffordance(wrapper: HTMLElement, overflowNow: boolean): void {
+  const a = affordances.get(wrapper);
+  if (!a) return;
+  if (affordanceDismissed || !overflowNow) {
+    if (a.cue.parentNode) a.cue.remove();
+    if (a.pill.parentNode) a.pill.remove();
+    return;
+  }
+  if (!a.cue.parentNode) wrapper.appendChild(a.cue);
+  if (!a.pill.parentNode) wrapper.appendChild(a.pill);
+}
+
+function setupInteractions(): void {
+  // NOTE: chartKeydown is hoisted to module scope so this removeEventListener
+  // actually matches the handler added below (function-declaration bindings
+  // inside this block would be a no-op removal and stack duplicate listeners
+  // on re-render).
+  chartRoot.querySelectorAll(".scroll-cue,.scroll-hint").forEach((el) => el.remove());
+  chartRoot.removeEventListener("keydown", chartKeydown);
+
+  const svgs = Array.from(chartRoot.querySelectorAll<SVGSVGElement>("svg"));
+  const plotMaybe = svgs.sort((a, b) =>
+    (b.getBoundingClientRect().width * b.getBoundingClientRect().height) -
+    (a.getBoundingClientRect().width * a.getBoundingClientRect().height))[0];
+  if (!plotMaybe) return;
+  const plot: SVGSVGElement = plotMaybe;
+  // Roving tabindex over Plot's per-mark ARIA groups. Structural groups in
+  // every renderer axis use aria-labels like "x-axis", "y-axis", "y-grid",
+  // "y-axis label"; those are excluded below so only data marks tab.
+  const excludedLabels = /^(x|y|fx|fy|color|opacity|r)-(axis|axis label|grid|tick)$/;
+  const groups = Array.from(plot.querySelectorAll<SVGGElement>("g[aria-label]")).filter((g) => {
+    const label = g.getAttribute("aria-label") ?? "";
+    if (excludedLabels.test(label)) return false;
+    return !g.querySelector("path,rect,circle,line,polygon") ? false : g.childElementCount > 0 && !label.endsWith("-label") && !label.includes("tick");
+  });
+  if (groups.length > 0) {
+    markGroupSelector = "g[aria-label]";
+    applyRovingTabindex(groups);
+  } else {
+    markGroupSelector = null;
+  }
+
+  function chartKeydown(ev: KeyboardEvent): void {
+    const target = ev.target as Element;
+    const current = groups.indexOf(target as SVGGElement);
+    if (current < 0) return;
+    if (ev.key === "ArrowRight" || ev.key === "ArrowDown") {
+      ev.preventDefault();
+      moveTabindex(groups[current]!, groups[(current + 1) % groups.length]!);
+    } else if (ev.key === "ArrowLeft" || ev.key === "ArrowUp") {
+      ev.preventDefault();
+      moveTabindex(groups[current]!, groups[(current - 1 + groups.length) % groups.length]!);
+    } else if (ev.key === "Enter" || ev.key === " ") {
+      ev.preventDefault();
+      announce(current);
+    }
+  }
+  chartRoot.addEventListener("keydown", chartKeydown);
+
+  function announce(index: number): void {
+    const row = data[index];
+    if (!row) return;
+    // Mirror the focused mark's tooltip-equivalent text into the polite
+    // aria-live region (never assertive — nothing here is urgent).
+    liveRegion.textContent = [config.x, config.y]
+      .filter((k): k is string => Boolean(k))
+      .map((k) => `${k} ${row[k]}`)
+      .join(", ");
+  }
+
+  // ── Pointer → live-region mirror with rAF coalescing ─────────────────
+  // Plot 0.6.17 coalesces faceted re-renders with rAF inside pointer.js, but
+  // non-faceted plots render synchronously per pointermove event. Our mirror
+  // listener throttles hover announcements to one update per frame; the
+  // nearest-mark lookup runs inside that frame callback, not per event.
+  let pendingFrame: number | null = null;
+  let pendingPoint: { x: number; y: number } | null = null;
+  let pendingLeave = false;
+
+  function scheduleMirror(ev: PointerEvent | null): void {
+    if (ev) {
+      const rect = plot.getBoundingClientRect();
+      pendingPoint = { x: ev.clientX - rect.left, y: ev.clientY - rect.top };
+    } else {
+      pendingLeave = true;
+    }
+    if (pendingFrame != null) return;
+    pendingFrame = window.requestAnimationFrame(() => {
+      pendingFrame = null;
+      if (pendingLeave) { pendingLeave = false; liveRegion.textContent = ""; return; }
+      const p = pendingPoint;
+      pendingPoint = null;
+      if (!p || markGroupSelector === null || groups.length === 0) return;
+      const boxes = Array.from(plot.querySelectorAll<SVGGElement>(markGroupSelector)).map((g) => g.getBoundingClientRect());
+      const pr = plot.getBoundingClientRect();
+      let best = -1;
+      let bestD = Infinity;
+      boxes.forEach((b, i) => {
+        const dx = Math.max(b.left - p.x - pr.left, 0, p.x + pr.left - b.right);
+        const dy = Math.max(b.top - p.y - pr.top, 0, p.y + pr.top - b.bottom);
+        const d = dx * dx + dy * dy;
+        if (d < bestD) { bestD = d; best = i; }
+      });
+      if (best >= 0 && bestD < 60 * 60) announce(best);
+    });
+  }
+
+  plot.addEventListener("pointermove", scheduleMirror, { passive: true });
+  plot.addEventListener("pointerleave", () => scheduleMirror(null), { passive: true });
+
+  // ── Scroll affordance wiring ────────────────────────────────────────
+  // The overflow container itself depends on viewport CSS (.chart gets
+  // overflow-x:auto at <=520px), so measure chartRoot scrollWidth vs
+  // clientWidth rather than hardcoding breakpoints. Detected post-layout
+  // (rAF), because styles must be applied before overflow exists.
+  buildScrollAffordance(chartRoot);
+  requestAnimationFrame(() => {
+    updateScrollAffordance(chartRoot, chartRoot.scrollWidth > chartRoot.clientWidth);
+  });
+}
+
+setupInteractions();
+document.body.appendChild(liveRegion);
 
 // ── Scroll-reveal "unfold" ─────────────────────────────────────────────
-// Premium editorial reveal: the chart draws itself in (clip-path unfold +
-// rise + fade) when the reader scrolls to it. In the explorer the PARENT
-// page scrolls (charts sit in auto-sized srcdoc iframes), so the parent
-// posts "chart:reveal" into each iframe; standalone charts arm the same
-// reveal with their own IntersectionObserver. Failsafe: the chart is fully
-// visible unless .reveal-play is added, and a hard timeout guarantees the
-// class is always removed.
+// The interactions layer above is (re)armed AFTER each render() — see the
+// setupInteractions() call following render() at the bottom of this file,
+// because render() calls chartRoot.replaceChildren(), which destroys any
+// previously injected affordance/keyboard DOM. The call here covers nothing
+// today (no render has run yet) but keeps this block safe if invocation
+// order moves.
+// The scroll-reveal "unfold": premium editorial reveal — the chart draws
+// itself in (clip-path unfold + rise + fade) when the reader scrolls to it.
+// In the explorer the PARENT page scrolls (charts sit in auto-sized srcdoc
+// iframes), so the parent posts "chart:reveal" into each iframe; standalone
+// charts arm the same reveal with their own IntersectionObserver. Failsafe:
+// the chart is fully visible unless .reveal-play is added, and a hard timeout
+// guarantees the class is always removed.
 // ── Choreography: classify the plot's marks and stagger them in ────────
 // Bars grow from the zero baseline (negative bars grow downward), dots pop
 // with an overshoot, stems/arrows draw themselves, choropleth states fade,
@@ -1499,3 +1810,15 @@ function armReveal(): void {
 }
 armReveal();
 render();
+// The render() above replaceChildren()s the chart — re-arm the interactions
+// layer (keyboard roving tabindex, pointer mirror listeners, scroll-affordance
+// DOM) against the freshly rendered SVG. Subsequent ResizeObserver-driven
+// re-renders re-arm through the wrapped observer below so the affordance and
+// keyboard targets survive every resize-triggered redraw.
+setupInteractions();
+const renderAndRearm = (): void => {
+  render();
+  setupInteractions();
+};
+new ResizeObserver(renderAndRearm).observe(chartRoot);
+

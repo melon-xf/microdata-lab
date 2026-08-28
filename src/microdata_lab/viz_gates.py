@@ -146,12 +146,29 @@ PIXEL_MIN_CONTENT = 0.002  # fraction of non-background pixels
 PIXEL_FRAME_MARGIN = 0.03  # frame line must be within this fraction of edges
 PIXEL_FRAME_MIN_RUN = 0.5  # frame line must span this fraction of the side
 
+# Per-edge clipping strips. The 4-corner probe alone missed mid-edge
+# clipping: a subtitle overflowing the right edge left 7.5% ink in the
+# right 200px of one production render while all four corners stayed
+# clean. Strip depth is a small fraction of the canvas with a floor,
+# and always sits INSIDE the smallest plot margin any theme declares
+# (16px bottom in the editorial/bauhaus themes). Margin-awareness: axis
+# labels and captions legitimately approach an edge but stop at the
+# margin boundary, so a legitimate figure measures exactly 0 ink in
+# these bands and only genuine off-canvas overflow trips the check.
+# (Measured across all 32 shipped figures: clean = 0.0000 on every
+# edge; the three figures with real subtitle clips = 0.011-0.044.)
+PIXEL_EDGE_STRIP_FRAC = 0.005  # strip depth as a fraction of the canvas dim
+PIXEL_EDGE_STRIP_MIN_PX = 6  # floor, so small canvases still get a real band
+PIXEL_EDGE_MAX_INK = 0.001  # 0.1% — 10x below the weakest observed clip
+
 
 class PixelFacts(TypedDict):
     size: tuple[int, int]
     background: tuple[int, int, int]
     content_frac: float
     corners_clean: bool
+    edges: dict[str, float]
+    edge_strip_px: tuple[int, int]
     signal_px: int
 
 
@@ -229,11 +246,39 @@ def _pixel_scan(path: Path, signal_color: str | None = None) -> PixelFacts:
         if not corners_clean:
             break
 
+    # Per-edge strips: full-length bands hugging each canvas edge, catching
+    # mid-edge overflow the corner probe cannot see. "Ink" = any channel
+    # farther than tol from the background (catches colored marks, e.g. a
+    # swiss-red title, not just dark text). Strip depth stays inside the
+    # smallest theme plot margin, so legitimate axis/caption ink that
+    # approaches — but never reaches — an edge does not false-positive.
+    strip_x = max(PIXEL_EDGE_STRIP_MIN_PX, round(width * PIXEL_EDGE_STRIP_FRAC))
+    strip_y = max(PIXEL_EDGE_STRIP_MIN_PX, round(height * PIXEL_EDGE_STRIP_FRAC))
+    edges: dict[str, float] = {}
+    for edge_name, (x0, y0, x1, y1) in (
+        ("top", (0, 0, width, strip_y)),
+        ("bottom", (0, height - strip_y, width, height)),
+        ("left", (0, 0, strip_x, height)),
+        ("right", (width - strip_x, 0, width, height)),
+    ):
+        ink = 0
+        total = 0
+        for yy in range(y0, y1):
+            for xx in range(x0, x1):
+                strip_px = img.getpixel((xx, yy))
+                strip_rgb: tuple[int, int, int] = cast(tuple[int, int, int], strip_px)
+                if any(abs(a - b) > 48 for a, b in zip(strip_rgb, background, strict=True)):
+                    ink += 1
+                total += 1
+        edges[edge_name] = ink / max(1, total)
+
     return {
         "size": (width, height),
         "background": background,
         "content_frac": content_frac,
         "corners_clean": corners_clean,
+        "edges": edges,
+        "edge_strip_px": (strip_x, strip_y),
         "signal_px": signal_px,
     }
 
@@ -269,6 +314,15 @@ def check_pixel_qa(data: Path, chart: Path) -> GateResult:
     issues: list[str] = []
     if not facts["corners_clean"]:
         issues.append("content touches canvas corner — text likely clipped or frame missing")
+    strip_x, strip_y = facts["edge_strip_px"]
+    for edge in ("top", "bottom", "left", "right"):
+        frac = facts["edges"][edge]
+        if frac > PIXEL_EDGE_MAX_INK:
+            depth = strip_y if edge in ("top", "bottom") else strip_x
+            issues.append(
+                f"ink in {edge} edge strip ({frac:.4f} of a {depth}px band) — "
+                "content clipped at the canvas edge"
+            )
     if facts["content_frac"] < PIXEL_MIN_CONTENT:
         issues.append(f"near-blank figure (content {facts['content_frac']:.4f})")
     if signal_color and facts["signal_px"] < PIXEL_MIN_SIGNAL:
@@ -283,7 +337,8 @@ def check_pixel_qa(data: Path, chart: Path) -> GateResult:
         "static",
         "pixel-qa",
         True,
-        f"content {facts['content_frac']:.3f}, corners clean, signal {facts['signal_px']}px",
+        f"content {facts['content_frac']:.3f}, corners clean, "
+        f"edge ink {max(facts['edges'].values()):.4f}, signal {facts['signal_px']}px",
     )
 
 

@@ -223,6 +223,15 @@ sources:
     update_cadence: monthly
     required_roles:
       - data_json
+  bls_series:
+    name: CPI-U time-series text files (all series)
+    agency: Bureau of Labor Statistics
+    landing_page: https://download.bls.gov/pub/time.series/cu/
+    access: public
+    adapter: bls_series
+    implemented: true
+    record_unit: monthly_index_observation
+    update_cadence: monthly
   fred:
     name: FRED Economic Data
     agency: Federal Reserve Bank of St. Louis

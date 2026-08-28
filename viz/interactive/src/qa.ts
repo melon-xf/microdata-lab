@@ -40,8 +40,14 @@ export function runQa(svg: SVGSVGElement): QaResult {
   // (axis labels vs value labels vs tick labels) report boxes in
   // different spaces and everything falsely overlaps. getBoundingClientRect
   // returns viewport-space boxes including all SVG transforms.
+  // EXCLUSION: the Plot tip bubble's <text> is skipped. The tip is a
+  // transient hover tooltip that BY DESIGN overlays whatever is beneath it
+  // ("tooltips are supplementary rather than essential"); sampling it at a
+  // random pointer position would fail every chart that has ever been
+  // hovered during QA. It is not an axis/value/direct label.
   const textBoxes: ElementBox[] = textEls
     .filter(el => el.textContent?.trim())
+    .filter(el => !el.closest("g[aria-label='tip']"))
     .map(el => {
       const bb = el.getBoundingClientRect();
       return { tag: "text", x: bb.x, y: bb.y, w: bb.width, h: bb.height, text: el.textContent ?? "" };
