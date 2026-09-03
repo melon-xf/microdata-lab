@@ -93,7 +93,10 @@ theme_editorial <- function() {
       plot.title = element_textbox_simple(
         family = "Jost Black", face = "plain", size = 23,
         color = editorial_palette[["ink"]], lineheight = 1.05,
-        margin = margin(b = 2)
+        # 12pt below the title: at 23pt Jost Black with lineheight 1.05,
+        # descenders reach the box bottom, so anything under ~10pt reads
+        # as the subtitle touching the title.
+        margin = margin(b = 12)
       ),
       plot.subtitle = element_textbox_simple(
         size = 15.5, color = editorial_palette[["muted"]], lineheight = 1.15,
@@ -149,7 +152,7 @@ theme_policy_bauhaus <- function() {
       plot.title = element_textbox_simple(
         family = "Jost Black", face = "plain", size = 26,
         color = bauhaus_palette[["black"]], lineheight = 1.05,
-        margin = margin(b = 4)
+        margin = margin(b = 12)
       ),
       plot.subtitle = element_textbox_simple(
         size = 15.5, color = bauhaus_palette[["grey"]], lineheight = 1.15,
@@ -212,7 +215,7 @@ theme_policy_swiss <- function() {
       plot.caption.position = "plot",
       plot.title = element_markdown(
         family = "Liberation Sans", face = "bold", size = 27,
-        color = swiss_palette[["black"]], hjust = 0, margin = margin(b = 6)
+        color = swiss_palette[["black"]], hjust = 0, margin = margin(b = 12)
       ),
       plot.subtitle = element_textbox_simple(
         size = 15.5, color = swiss_palette[["grey"]], hjust = 0,
@@ -357,6 +360,9 @@ format_value <- function(values) {
   if (format_name == "percent") return(label_percent(accuracy = 0.1)(values))
   if (format_name == "currency") return(label_dollar(accuracy = 1, big.mark = ",")(values))
   if (format_name == "compact_currency") return(label_dollar(scale_cut = cut_short_scale())(values))
+  # Whole-number series (counts, years, indexed values) get integer labels:
+  # forced ".0" decimals on a 30/60/90 tick grid read as machine output.
+  if (all(values == round(values), na.rm = TRUE)) return(label_comma(accuracy = 1)(values))
   label_comma(accuracy = 0.1)(values)
 }
 
@@ -375,6 +381,20 @@ tick_label <- function(values, suffix) {
   if (nzchar(suffix)) paste0(labels, suffix) else labels
 }
 
+# X-axis ticks frequently carry categorical-numeric values (years, counts,
+# days-since). Comma grouping and forced decimals on those read as broken
+# ("2,022.0"). When every value is a whole number, render plain integers;
+# otherwise keep the existing data formatter.
+x_tick_label <- function(values, suffix) {
+  whole <- all(values == round(values)) && !any(is.na(values))
+  if (whole) {
+    labels <- format(round(values), trim = TRUE, scientific = FALSE)
+    if (nzchar(suffix)) return(paste0(labels, suffix))
+    return(labels)
+  }
+  tick_label(values, suffix)
+}
+
 theme_policy <- function() {
   theme_minimal(base_family = "Roboto", base_size = 20) +
     theme(
@@ -388,7 +408,7 @@ theme_policy <- function() {
       plot.title = element_textbox_simple(
         family = "Roboto Condensed", face = "bold", size = 34,
         color = palette[["ink"]], lineheight = 1.03,
-        margin = margin(b = 8)
+        margin = margin(b = 12)
       ),
       plot.subtitle = element_textbox_simple(
         size = 19, color = palette[["muted"]], lineheight = 1.15,
@@ -507,7 +527,12 @@ if (chart_type == "bar" && orientation == "horizontal") {
       expand = expansion(mult = c(0, 0.14))) +
     {if (is.null(config$show_value_labels) || config$show_value_labels) {
       geom_text(
-        aes(x = .data[[config$y]], label = .data[[".label"]]),
+        aes(x = .data[[config$y]], label = .data[[".label"]],
+            # Grouped (dodged) bars: anchor each label to ITS OWN bar's
+            # vertical center. Without this, labels land on the group seam
+            # and the number for one series reads as the other's bar.
+            group = .data[[fill_col]]),
+        position = position_dodge2(width = 0.68, padding = 0),
         hjust = -0.35, family = if (use_swiss) "Liberation Sans" else "Roboto Condensed",
         fontface = "bold", size = 5.2, color = palette[["ink"]]
       )
@@ -659,7 +684,7 @@ if (chart_type == "bar" && orientation == "horizontal") {
     ) +
     scale_x_continuous(
       breaks = if (!is.null(config$x_ticks)) unlist(config$x_ticks) else waiver(),
-      labels = function(v) tick_label(v, x_suffix)
+      labels = function(v) x_tick_label(v, x_suffix)
     ) +
     scale_color_manual(values = series_color_map()) +
     theme_use() +
